@@ -4,7 +4,7 @@ import FormInputText from "../../atoms/Input/FormInputFIeld";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { signinSchema } from "../../../Schemas/userSchema";
 import Form from "../../molecules/Form/Form";
-
+import { constants } from "../../../constants";
 const Signin = () => {
   const { handleSubmit, reset, control } = useForm({
     defaultValues: { email: "", password: "", confirmPassword: "" },
@@ -16,7 +16,7 @@ const Signin = () => {
     <Form
       type="Sign in"
       linkText="Don't have an account? Sign up"
-      link="signup"
+      link={`${constants.BASE_URL}/signup`}
       onSubmit={onSubmit}
       handleSubmit={handleSubmit}
     >
