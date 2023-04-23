@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/zed65pro.github.io/socialmedia/static/css/main.346bc55b.css",
+    "main.js": "/zed65pro.github.io/socialmedia/static/js/main.f2e51c0a.js",
+    "static/media/intro-bg.jpg": "/zed65pro.github.io/socialmedia/static/media/intro-bg.cf2364827d8b8a98642e.jpg",
+    "index.html": "/zed65pro.github.io/socialmedia/index.html",
+    "main.346bc55b.css.map": "/zed65pro.github.io/socialmedia/static/css/main.346bc55b.css.map",
+    "main.f2e51c0a.js.map": "/zed65pro.github.io/socialmedia/static/js/main.f2e51c0a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.346bc55b.css",
+    "static/js/main.f2e51c0a.js"
+  ]
+}
