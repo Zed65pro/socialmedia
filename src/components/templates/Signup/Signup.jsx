@@ -17,7 +17,7 @@ const Signup = () => {
     <Form
       type="Sign up"
       linkText="Already have an account? Sign in"
-      link={`${constants.BASE_URL}/signup`}
+      link={`${constants.BASE_URL}/${constants.SIGN_IN}`}
       onSubmit={onSubmit}
       handleSubmit={handleSubmit}
     >

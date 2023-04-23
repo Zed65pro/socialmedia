@@ -58,7 +58,7 @@ const Form = ({ children, link, linkText, type, onSubmit, handleSubmit }) => {
             >
               {type}
             </Button>
-            <Link to={`/${link}`} style={{ color: "#141473" }}>
+            <Link to={link} style={{ color: "#141473" }}>
               {linkText}
             </Link>
             <Copyright />

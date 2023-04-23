@@ -9,11 +9,19 @@ import "./app.css";
 const App = () => {
   return (
     <Routes>
-      <Route exact path={`${constants.BASE_URL}/signup`} element={<Home />} />
-      <Route exact path={`${constants.BASE_URL}/signin`} element={<Signin />} />
+      <Route
+        exact
+        path={`${constants.BASE_URL}/${constants.SIGN_UP}`}
+        element={<Home />}
+      />
+      <Route
+        exact
+        path={`${constants.BASE_URL}/${constants.SIGN_IN}`}
+        element={<Signin />}
+      />
       <Route
         path={`${constants.BASE_URL}`}
-        element={<Navigate to={`${constants.BASE_URL}/signin`} />}
+        element={<Navigate to={`${constants.BASE_URL}/${constants.SIGN_IN}`} />}
       />
     </Routes>
   );
