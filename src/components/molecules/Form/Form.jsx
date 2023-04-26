@@ -5,8 +5,11 @@ import Copyright from "../../atoms/Copyright";
 import { Link } from "react-router-dom";
 import BackgroundSplit from "../../atoms/BackgroundSplit";
 import { makeStyles } from "@mui/styles";
+import { reset_error } from "../../../storage/useLogin";
+import { useDispatch } from "react-redux";
 
 const Form = ({ children, link, linkText, type, onSubmit, handleSubmit }) => {
+  const dispatch = useDispatch();
   const classes = useStyles();
 
   return (
@@ -43,12 +46,12 @@ const Form = ({ children, link, linkText, type, onSubmit, handleSubmit }) => {
           <Typography component="h1" variant="h5">
             {type}
           </Typography>
-          <Box
-            component="form"
-            noValidate
-            onSubmit={handleSubmit(onSubmit)}
-            sx={{ mt: 1 }}
-          >
+            <Box
+              component="form"
+              noValidate
+              onSubmit={handleSubmit(onSubmit)}
+              sx={{ mt: 1 }}
+            >
             {children}
             <Button
               type="submit"
@@ -58,7 +61,11 @@ const Form = ({ children, link, linkText, type, onSubmit, handleSubmit }) => {
             >
               {type}
             </Button>
-            <Link to={link} style={{ color: "#141473" }}>
+            <Link
+              onClick={() => dispatch(reset_error())}
+              to={{ pathname: link }}
+              style={{ color: "#141473" }}
+            >
               {linkText}
             </Link>
             <Copyright />

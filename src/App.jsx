@@ -2,9 +2,9 @@ import React from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import Signin from "./components/templates/Signin/Signin";
 import Signup from "./components/templates/Signup/Signup";
-import Home from "./components/pages/Home";
 import { constants } from "./constants";
 import "./app.css";
+import Home from "./components/pages/Home";
 
 const App = () => {
   return (
@@ -12,7 +12,7 @@ const App = () => {
       <Route
         exact
         path={`${constants.BASE_URL}/${constants.SIGN_UP}`}
-        element={<Home />}
+        element={<Signup />}
       />
       <Route
         exact
@@ -20,8 +20,12 @@ const App = () => {
         element={<Signin />}
       />
       <Route
-        path={`${constants.BASE_URL}`}
+        path={`/`}
         element={<Navigate to={`${constants.BASE_URL}/${constants.SIGN_IN}`} />}
+      />
+      <Route
+        path={`${constants.BASE_URL}/${constants.HOME}`}
+        element={<Home />}
       />
     </Routes>
   );
