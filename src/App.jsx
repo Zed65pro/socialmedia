@@ -12,6 +12,11 @@ const App = () => {
     <Routes>
       <Route
         exact
+        path={`${constants.BASE_URL}/`}
+        element={<Navigate to={`${constants.BASE_URL}/${constants.SIGN_IN}`} />}
+      />
+      <Route
+        exact
         path={`${constants.BASE_URL}/${constants.SIGN_UP}`}
         element={<Signup />}
       />
@@ -21,10 +26,7 @@ const App = () => {
         element={<Signin />}
       />
       <Route
-        path={`/`}
-        element={<Navigate to={`${constants.BASE_URL}/${constants.SIGN_IN}`} />}
-      />
-      <Route
+        exact
         path={`${constants.BASE_URL}/${constants.HOME}`}
         element={<Home />}
       />
