@@ -51,6 +51,7 @@ const Signin = () => {
       handleSubmit={handleSubmit}
     >
       {loading && <p>Loading...</p>}
+      <Typography>JOLY</Typography>
       <FormInputText
         control={control}
         name="email"

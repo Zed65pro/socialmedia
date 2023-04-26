@@ -7,6 +7,7 @@ import "./app.css";
 import Home from "./components/pages/Home";
 
 const App = () => {
+  console.log("sadsa");
   return (
     <Routes>
       <Route
