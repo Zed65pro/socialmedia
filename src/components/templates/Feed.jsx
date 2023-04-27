@@ -15,7 +15,7 @@ const Feed = ({ onLogout }) => {
       }}
     >
       <Paper
-        elevation="4"
+        elevation={4}
         sx={{
           margin: "0 10%",
           padding: "5%",

@@ -15,8 +15,6 @@ const Home = () => {
   const loading = useSelector((state) => state.loader);
   const error = useSelector((state) => state.error);
 
-  console.log(getUser());
-
   useEffect(() => {
     !getToken() && navigate(`${constants.BASE_URL}/${constants.SIGN_IN}`);
   }, [navigate]);
