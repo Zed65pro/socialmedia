@@ -3,4 +3,5 @@ export const constants = {
   SIGN_UP: "signup",
   SIGN_IN: "signin",
   HOME: "home",
+  WRONG_ROUTE: "BAD",
 };

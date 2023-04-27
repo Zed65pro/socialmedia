@@ -4,8 +4,16 @@
     box-sizing: border-box;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body{
-    background-color: #000;
+    background-color: "white";
     font-family: "Sofia", sans-serif;
+  }
+
+  a{
+    textDecoration: 'none'
   }
   

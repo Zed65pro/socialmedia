@@ -55,16 +55,9 @@ const Signup = () => {
         control={control}
         name="username"
         label="Username"
-        autoComplete="username"
         autoFocus
       />
-      <FormInputText
-        control={control}
-        name="email"
-        label="Email"
-        autoComplete="email"
-        autoFocus
-      />
+      <FormInputText control={control} name="email" label="Email" autoFocus />
       <FormInputText
         control={control}
         name="password"
