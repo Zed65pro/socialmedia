@@ -1,26 +1,26 @@
-import { Box } from "@mui/material";
+import { Typography } from "@mui/material";
 import React, { useEffect } from "react";
-import Posts from "../organisms/Posts";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchUser } from "../../utils/fetchUser";
+import Post from "../molecules/Post";
 
-const Feed = () => {
-  const navigate = useNavigate();
+const Posts = () => {
   const user = useSelector((state) => state.user);
+  const navigate = useNavigate();
+
   useEffect(() => {
     !user && fetchUser(navigate);
   }, [user]);
+
   return (
-    <Box
-      sx={{
-        marginTop: "10%",
-        height: "100vh",
-      }}
-    >
-      <Posts />
-    </Box>
+    <>
+      {user &&
+        user.posts.map((postId) => (
+          <Post key={postId} username={user.username} postId={postId} />
+        ))}
+    </>
   );
 };
 
-export default Feed;
+export default Posts;

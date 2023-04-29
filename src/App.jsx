@@ -6,6 +6,7 @@ import { constants } from "./constants";
 import "./app.css";
 import Home from "./components/pages/Home";
 import BadRoute from "./components/pages/BadRoute";
+import Profile from "./components/pages/Profile";
 
 const App = () => {
   return (
@@ -36,6 +37,11 @@ const App = () => {
         element={
           <BadRoute link={`${constants.BASE_URL}/${constants.SIGN_IN}`} />
         }
+      />
+      <Route
+        exact
+        path={`${constants.BASE_URL}/${constants.USER}/:id`}
+        element={<Profile />}
       />
       <Route
         path="*"

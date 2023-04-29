@@ -7,13 +7,13 @@ import {
   AiOutlineInstagram,
   AiOutlineGithub,
 } from "react-icons/ai";
+import DividerAtom from "../../atoms/DividerAtom";
 
 const Footer = () => {
   const classes = useStyles();
 
   return (
     <Box className={classes.footer}>
-      <Divider light={true} className={classes.divider} />
       <Box>
         <Box className={classes.icons}>
           <a
@@ -22,7 +22,7 @@ const Footer = () => {
             href={"https://www.linkedin.com/in/zaid-ibaisi-35592115b"}
             rel="noreferrer"
           >
-            <AiOutlineLinkedin size="30" />
+            <AiOutlineLinkedin size="25" />
           </a>
           <a
             style={{ color: "inherit" }}
@@ -30,7 +30,7 @@ const Footer = () => {
             href={"https://www.instagram.com/zaidibs_155/"}
             rel="noreferrer"
           >
-            <AiOutlineInstagram size="30" />
+            <AiOutlineInstagram size="25" />
           </a>
           <a
             style={{ color: "inherit" }}
@@ -38,31 +38,35 @@ const Footer = () => {
             href={"https://github.com/Zed65pro"}
             rel="noreferrer"
           >
-            <AiOutlineGithub size="30" />
+            <AiOutlineGithub size="25" />
           </a>
         </Box>
-        <Typography variant="h6" sx={{ fontSize: ".8rem" }}>
-          Zaid Ibaisi © 2023
-        </Typography>
+        <Typography sx={{ fontSize: ".5rem" }}>Zaid Ibaisi © 2023</Typography>
       </Box>
     </Box>
   );
 };
 
 const useStyles = makeStyles((theme) => ({
+  footerRoot: {
+    position: "relative",
+    height: "100vh",
+    width: "100vw",
+  },
   footer: {
     display: "flex",
+    padding: "5px",
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "column",
+    position: "fixed",
     bottom: 0,
     left: 0,
     width: "100%",
     color: "white",
     textAlign: "center",
     background:
-      "linear-gradient(90deg, rgba(241, 134, 13, 0.8) 15%, rgba(94,22,66,1) 85%)",
-    padding: "0 4rem",
+      "linear-gradient(90deg, rgba(241, 134, 13, 1) 15%, rgba(94,22,66,1) 85%)",
     boxShadow:
       "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
   },
@@ -70,12 +74,6 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-  },
-  divider: {
-    backgroundColor: "#fff",
-    width: "50%",
-    marginBottom: "10px!important",
-    opacity: 0.6,
   },
 }));
 

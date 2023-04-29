@@ -2,7 +2,7 @@ import axios from "axios";
 
 const api = axios.create({
   // baseURL: "http://localhost:3000/",
-  baseURL: "https://be07-2001-8f8-1669-9fc-dde8-9d32-bab3-92e1.ngrok-free.app",
+  baseURL: "https://0a0e-2001-8f8-1669-9fc-f14e-18f1-1010-5075.ngrok-free.app",
   timeout: 10000,
 });
 

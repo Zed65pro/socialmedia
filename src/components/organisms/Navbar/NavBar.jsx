@@ -1,56 +1,66 @@
-import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, Toolbar, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
-import { FiSettings } from "react-icons/fi";
 import { CgProfile } from "react-icons/cg";
 import MenuListComposition from "../Menu/Menu";
+import { constants } from "../../../constants.js";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { fetchUser } from "../../../utils/fetchUser";
 
 const Navbar = ({ onLogout }) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+  const loading = useSelector((state) => state.loader);
+
+  useEffect(() => {
+    !user && fetchUser(navigate);
+  }, [user]);
+
   const classes = useStyles();
 
   return (
-    <Box className={classes.navroot}>
-      <AppBar className={classes.root}>
-        <Toolbar item xs={12} className={classes.navbar}>
-          <Link to="/" className={`${classes.title} ${classes.nav_element}`}>
-            <Typography variant="h3" sx={{ flexGrow: 1 }}>
-              SOCIALIX
-            </Typography>
-          </Link>
-          <Box className={classes.nav_elements}>
-            <Link to="/Projects" className={classes.nav_element}>
-              <FaHome size="35" className={classes.icon} />
-            </Link>
-            <Link to="/About" className={classes.nav_element}>
-              <CgProfile size="35" className={classes.icon} />
-            </Link>
-            {/* <Link to="/Experience" className={classes.nav_element}>
-              <FiSettings size="35" className={classes.icon} />
-            </Link> */}
-            {/* <Button
-              onClick={onLogout}
-              variant="outlined"
-              className={classes.nav_element}
-              sx={{ color: "#fff" }}
-              color="secondary"
-            >
-              <Typography variant="h5">LOGOUT</Typography>
-            </Button> */}
-            <MenuListComposition onLogout={onLogout} />
-          </Box>
-        </Toolbar>
-      </AppBar>
-    </Box>
+    <>
+      {loading && <p>Loading...</p>}
+      {user && (
+        <Box>
+          <AppBar className={classes.root}>
+            <Toolbar xs={12} className={classes.navbar}>
+              <Link
+                to="/"
+                className={`${classes.title} ${classes.nav_element}`}
+              >
+                <Typography variant="h3" sx={{ flexGrow: 1 }}>
+                  SOCIALIX
+                </Typography>
+              </Link>
+              <Box className={classes.nav_elements}>
+                <Link
+                  to={`${constants.BASE_URL}/${constants.HOME}`}
+                  className={classes.nav_element}
+                >
+                  <FaHome size="35" className={classes.icon} />
+                </Link>
+                <Link
+                  to={`${constants.BASE_URL}/${constants.USER}/${user._id}`}
+                  className={classes.nav_element}
+                >
+                  <CgProfile size="35" className={classes.icon} />
+                </Link>
+                <MenuListComposition onLogout={onLogout} />
+              </Box>
+            </Toolbar>
+          </AppBar>
+        </Box>
+      )}
+    </>
   );
 };
 
 const useStyles = makeStyles((theme) => ({
-  navroot: {
-    marginBottom: "10rem!important",
-  },
-
   root: {
     backgroundColor: "rgb(36,94,156)",
     background:

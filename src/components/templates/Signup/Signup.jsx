@@ -7,7 +7,7 @@ import Form from "../../molecules/Form/Form";
 import { constants } from "../../../constants";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { signup } from "../../../storage/useLogin";
+import { signup } from "../../../storage/authReducers";
 import { Typography } from "@mui/material";
 import { getToken } from "../../../storage/authStorage";
 
