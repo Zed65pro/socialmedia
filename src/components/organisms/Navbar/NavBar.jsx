@@ -18,19 +18,18 @@ const Navbar = ({ onLogout }) => {
 
   useEffect(() => {
     !user && fetchUser(navigate);
-  }, [user]);
+  }, []);
 
   const classes = useStyles();
 
   return (
     <>
-      {loading && <p>Loading...</p>}
       {user && (
-        <Box>
+        <Box sx={{ marginBottom: { xs: "50%", md: "20%", lg: "10%" } }}>
           <AppBar className={classes.root}>
             <Toolbar xs={12} className={classes.navbar}>
               <Link
-                to="/"
+                to={`${constants.BASE_URL}/${constants.HOME}`}
                 className={`${classes.title} ${classes.nav_element}`}
               >
                 <Typography variant="h3" sx={{ flexGrow: 1 }}>
@@ -65,7 +64,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "rgb(36,94,156)",
     background:
       "linear-gradient(90deg, rgba(20, 163, 214, 0.91) 15%, rgba(0,0,0,1) 85%)",
-    padding: "0 4rem",
     borderBottomRightRadius: "5px",
     borderBottomLeftRadius: "5px",
     boxShadow:
@@ -81,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
     // },
     [theme.breakpoints.up("lg")]: {
       display: "flex",
-      justifyContent: "space-around",
+      justifyContent: "space-between",
     },
   },
   nav_elements: {

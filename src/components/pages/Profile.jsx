@@ -12,8 +12,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { postSchema } from "../../Schemas/postSchema";
 import { postCreate } from "../../storage/postReducers";
-import { Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import Posts from "../organisms/Posts";
+import { fetchUser } from "../../utils/fetchUser";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -23,8 +24,7 @@ const Profile = () => {
   const error = useSelector((state) => state.error);
   useEffect(() => {
     // fetchUser(navigate);
-    if (!user) dispatch(getCurrentUser(navigate));
-    !getToken() && navigate(`${constants.BASE_URL}/${constants.SIGN_IN}`);
+    !user && fetchUser(navigate);
   }, []);
 
   const { handleSubmit, reset, control } = useForm({

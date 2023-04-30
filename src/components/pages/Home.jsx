@@ -8,6 +8,8 @@ import Navbar from "../organisms/Navbar/Navbar";
 import Footer from "../organisms/Footer/Footer";
 import Feed from "../templates/Feed";
 import { Box, Button, Typography } from "@mui/material";
+import { fetchUser } from "../../utils/fetchUser";
+import AllPosts from "../organisms/AllPosts";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -15,16 +17,11 @@ const Home = () => {
   const loading = useSelector((state) => state.loader);
   const error = useSelector((state) => state.error);
   const user = useSelector((state) => state.user);
-  const [isUser, setIsUser] = useState(false);
-
-  const onGetUser = () => {
-    setIsUser(true);
-    dispatch(getCurrentUser(navigate));
-  };
 
   useEffect(() => {
     !getToken() && navigate(`${constants.BASE_URL}/${constants.SIGN_IN}`);
-  }, [navigate, user]);
+    fetchUser(navigate);
+  }, []);
 
   const onLogout = () => {
     dispatch(logout(navigate));
@@ -36,37 +33,9 @@ const Home = () => {
         <>
           {loading && <p>Loading...</p>}
           <Navbar onLogout={onLogout} />
-          <Feed />
-
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-              padding: "5rem",
-            }}
-          >
-            <Button variant="contained" color="secondary" onClick={onGetUser}>
-              GET THE USER
-            </Button>
-            {user && isUser && (
-              <Box>
-                <Typography>{user.username}</Typography>
-                <Typography>{user.email}</Typography>
-              </Box>
-            )}
-          </Box>
+          {/* <Feed /> */}
+          <AllPosts />
           <Footer />
-          {error && (
-            <Typography
-              sx={{ textAlign: "center", color: "red" }}
-              position={"center"}
-              variant="h5"
-            >
-              {error}
-            </Typography>
-          )}
         </>
       )}
     </>

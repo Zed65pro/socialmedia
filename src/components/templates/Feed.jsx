@@ -10,7 +10,7 @@ const Feed = () => {
   const user = useSelector((state) => state.user);
   useEffect(() => {
     !user && fetchUser(navigate);
-  }, [user]);
+  }, []);
   return (
     <Box
       sx={{

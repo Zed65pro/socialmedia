@@ -13,8 +13,8 @@ const Footer = () => {
   const classes = useStyles();
 
   return (
-    <Box className={classes.footer}>
-      <Box>
+    <Box className={classes.footerRoot}>
+      <Box className={classes.footer}>
         <Box className={classes.icons}>
           <a
             style={{ color: "inherit" }}
@@ -51,15 +51,15 @@ const useStyles = makeStyles((theme) => ({
   footerRoot: {
     position: "relative",
     height: "100vh",
-    width: "100vw",
+    width: "100%",
   },
   footer: {
     display: "flex",
-    padding: "5px",
+    padding: "1px",
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "column",
-    position: "fixed",
+    position: "absolute",
     bottom: 0,
     left: 0,
     width: "100%",

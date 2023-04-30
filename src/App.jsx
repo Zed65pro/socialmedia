@@ -1,5 +1,5 @@
-import React from "react";
-import { Route, Routes, Navigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
 import Signin from "./components/templates/Signin/Signin";
 import Signup from "./components/templates/Signup/Signup";
 import { constants } from "./constants";
@@ -7,8 +7,14 @@ import "./app.css";
 import Home from "./components/pages/Home";
 import BadRoute from "./components/pages/BadRoute";
 import Profile from "./components/pages/Profile";
+import { fetchUser } from "./utils/fetchUser";
 
 const App = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    fetchUser(navigate);
+  }, []);
+
   return (
     <Routes>
       <Route

@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -11,14 +11,19 @@ const Posts = () => {
 
   useEffect(() => {
     !user && fetchUser(navigate);
-  }, [user]);
+  }, []);
 
   return (
     <>
-      {user &&
-        user.posts.map((postId) => (
-          <Post key={postId} username={user.username} postId={postId} />
-        ))}
+      {user && (
+        <Box sx={{ margin: "0 5%" }}>
+          <Grid container spacing={4}>
+            {user.posts.map((postId) => (
+              <Post key={postId} username={user.username} postId={postId} />
+            ))}
+          </Grid>
+        </Box>
+      )}
     </>
   );
 };

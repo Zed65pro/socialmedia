@@ -65,7 +65,7 @@ const Signin = () => {
         type="password"
         autoFocus
       />
-      {error && (
+      {/* {error && (
         <Typography
           sx={{ textAlign: "center", color: "red" }}
           position={"center"}
@@ -73,7 +73,7 @@ const Signin = () => {
         >
           {error}
         </Typography>
-      )}
+      )} */}
     </Form>
   );
 };

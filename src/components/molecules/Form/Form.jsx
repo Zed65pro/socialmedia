@@ -27,7 +27,7 @@ const Form = ({ children, link, linkText, type, onSubmit, handleSubmit }) => {
         url={`url(${require("../../../assets/background/intro-bg.jpg")})`}
         className={classes.background}
       />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+      <Grid item sm={12} md={5} component={Paper} elevation={6} square>
         <Box
           sx={{
             my: 8,
@@ -46,12 +46,12 @@ const Form = ({ children, link, linkText, type, onSubmit, handleSubmit }) => {
           <Typography component="h1" variant="h5">
             {type}
           </Typography>
-            <Box
-              component="form"
-              noValidate
-              onSubmit={handleSubmit(onSubmit)}
-              sx={{ mt: 1 }}
-            >
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit(onSubmit)}
+            sx={{ mt: 1 }}
+          >
             {children}
             <Button
               type="submit"
