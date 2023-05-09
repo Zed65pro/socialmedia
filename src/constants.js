@@ -5,4 +5,6 @@ export const constants = {
   HOME: "feed",
   WRONG_ROUTE: "BAD",
   USER: "user",
+  FRIENDS: "friends",
+  ADDPOST: "post_add",
 };

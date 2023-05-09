@@ -6,15 +6,14 @@ import { FaHome } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import MenuListComposition from "../Menu/Menu";
 import { constants } from "../../../constants.js";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchUser } from "../../../utils/fetchUser";
+import SearchBar from "../SearchBar";
 
 const Navbar = ({ onLogout }) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  const loading = useSelector((state) => state.loader);
 
   useEffect(() => {
     !user && fetchUser(navigate);

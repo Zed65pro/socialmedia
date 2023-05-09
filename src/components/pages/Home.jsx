@@ -10,6 +10,7 @@ import Feed from "../templates/Feed";
 import { Box, Button, Typography } from "@mui/material";
 import { fetchUser } from "../../utils/fetchUser";
 import AllPosts from "../organisms/AllPosts";
+import SearchBar from "../organisms/SearchBar";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -19,8 +20,8 @@ const Home = () => {
   const user = useSelector((state) => state.user);
 
   useEffect(() => {
-    !getToken() && navigate(`${constants.BASE_URL}/${constants.SIGN_IN}`);
-    fetchUser(navigate);
+    !user && navigate(`${constants.BASE_URL}/${constants.SIGN_IN}`);
+    !user && fetchUser(navigate);
   }, []);
 
   const onLogout = () => {
@@ -29,11 +30,12 @@ const Home = () => {
 
   return (
     <>
-      {getToken() && (
+      {user && (
         <>
           {loading && <p>Loading...</p>}
           <Navbar onLogout={onLogout} />
           {/* <Feed /> */}
+          <SearchBar />
           <AllPosts />
           <Footer />
         </>

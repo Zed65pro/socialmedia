@@ -138,12 +138,12 @@ export const getCurrentUser = (navigate) => {
 
     try {
       const response = await api.get("/token");
-      dispatch(userSuccess(response.data.user));
+      dispatch(userSuccess(response.data));
       // console.log(response.data.user);
-      navigate(`${constants.BASE_URL}/${constants.HOME}`);
+      // navigate(`${constants.BASE_URL}/${constants.HOME}`);
     } catch (error) {
       const errorMessage = error.response.data || "An unknown error occurred.";
-      dispatch(userFailure(error));
+      dispatch(userFailure(errorMessage));
     }
   };
 };

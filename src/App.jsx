@@ -8,6 +8,8 @@ import Home from "./components/pages/Home";
 import BadRoute from "./components/pages/BadRoute";
 import Profile from "./components/pages/Profile";
 import { fetchUser } from "./utils/fetchUser";
+import Friends from "./components/pages/Friends";
+import AddPost from "./components/templates/AddPost";
 
 const App = () => {
   const navigate = useNavigate();
@@ -48,6 +50,20 @@ const App = () => {
         exact
         path={`${constants.BASE_URL}/${constants.USER}/:id`}
         element={<Profile />}
+      />
+      <Route
+        exact
+        path={`${constants.BASE_URL}/${constants.FRIENDS}`}
+        element={<Friends />}
+      />
+      <Route
+        exact
+        path={`${constants.BASE_URL}/${constants.ADDPOST}`}
+        element={<AddPost />}
+      />
+      <Route
+        path={`/`}
+        element={<Navigate to={`${constants.BASE_URL}/${constants.HOME}`} />}
       />
       <Route
         path="*"

@@ -2,12 +2,14 @@ import { Box, Grid } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import api from "../../api/api";
 import Post from "../molecules/Post";
-const AllPosts = () => {
+const AllPosts = ({ userId }) => {
   const [posts, setPosts] = useState(null);
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await api.get("/post/");
+      const response = userId
+        ? await api.get(`/post/user/${userId}`)
+        : await api.get(`/post/`);
       const posts = response.data;
       const usernamePromises = posts.map(async (post) => {
         const response = await api.get(`/auth/username/${post.userId}`);
@@ -34,7 +36,7 @@ const AllPosts = () => {
   return (
     <>
       {posts && (
-        <Box sx={{ margin: "0 5%" }}>
+        <Box sx={{ margin: "0 20%" }}>
           <Grid container spacing={4}>
             {posts.map((post) => (
               <Post key={post._id} username={post.username} postId={post._id} />

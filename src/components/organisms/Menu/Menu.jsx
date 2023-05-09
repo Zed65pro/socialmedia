@@ -8,10 +8,13 @@ import MenuList from "@mui/material/MenuList";
 import Stack from "@mui/material/Stack";
 import { IconButton } from "@mui/material";
 import { FiSettings } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
+import { constants } from "../../../constants";
 
 export default function MenuListComposition({ onLogout }) {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
+  const navigate = useNavigate();
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -25,6 +28,13 @@ export default function MenuListComposition({ onLogout }) {
     setOpen(false);
   };
 
+  const onFriends = () => {
+    navigate(`${constants.BASE_URL}/${constants.FRIENDS}`);
+  };
+
+  const onAddPost = () => {
+    navigate(`${constants.BASE_URL}/${constants.ADDPOST}`);
+  };
   function handleListKeyDown(event) {
     if (event.key === "Tab") {
       event.preventDefault();
@@ -81,8 +91,8 @@ export default function MenuListComposition({ onLogout }) {
                     aria-labelledby="composition-button"
                     onKeyDown={handleListKeyDown}
                   >
-                    <MenuItem onClick={handleClose}>Activities</MenuItem>
-                    <MenuItem onClick={handleClose}>Contacts</MenuItem>
+                    <MenuItem onClick={onFriends}>Friend List</MenuItem>
+                    <MenuItem onClick={onAddPost}>Add post</MenuItem>
                     <MenuItem onClick={onLogout}>Logout</MenuItem>
                   </MenuList>
                 </ClickAwayListener>

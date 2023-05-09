@@ -20,7 +20,6 @@ const Signin = () => {
   // const user = useSelector((state) => state.user);
 
   useEffect(() => {
-    console.log(getToken());
     getToken() && navigate(`${constants.BASE_URL}/${constants.HOME}`);
   }, [navigate]);
 
