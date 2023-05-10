@@ -10,6 +10,7 @@ import { fetchUser } from "./utils/fetchUser";
 import Friends from "./components/pages/Friends";
 import AddPost from "./components/templates/AddPost";
 import "./app.css";
+import ProfileEdit from "./components/organisms/ProfileEdit";
 
 const App = () => {
   const navigate = useNavigate();
@@ -38,6 +39,11 @@ const App = () => {
         exact
         path={`${constants.BASE_URL}/${constants.HOME}`}
         element={<Home />}
+      />
+      <Route
+        exact
+        path={`${constants.BASE_URL}/${constants.PROFILE}`}
+        element={<ProfileEdit />}
       />
       <Route
         exact

@@ -8,7 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { friendSchema } from "../../Schemas/friendSchema";
 import FormInputText from "../atoms/Input/FormInputFIeld";
 import api from "../../api/api";
-import Navbar from "../organisms/Navbar/Navbar";
+import Navbar from "../organisms/Navbar/NavBar";
 import Footer from "../organisms/Footer/Footer";
 import FriendList from "../organisms/FriendList";
 
@@ -89,7 +89,7 @@ const Friends = () => {
           {error && (
             <Box sx={{ textAlign: "center" }}>
               <Typography variant="h6" color="secondary">
-                {error}
+                {error.message}
               </Typography>
             </Box>
           )}

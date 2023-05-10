@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUser, logout } from "../../storage/authReducers";
 import { constants } from "../../constants";
 import { getToken } from "../../storage/authStorage";
-import Navbar from "../organisms/Navbar/Navbar";
+import Navbar from "../organisms/Navbar/NavBar";
 import Footer from "../organisms/Footer/Footer";
 import Feed from "../templates/Feed";
 import { Box, Button, Typography } from "@mui/material";

@@ -7,4 +7,5 @@ export const constants = {
   USER: "user",
   FRIENDS: "friends",
   ADDPOST: "post_add",
+  PROFILE: "/profile",
 };

@@ -50,7 +50,7 @@ const Footer = () => {
 const useStyles = makeStyles((theme) => ({
   footerRoot: {
     position: "relative",
-    height: "100vh",
+    height: "80vh",
     width: "100%",
   },
   footer: {

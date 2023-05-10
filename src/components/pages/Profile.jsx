@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../organisms/Navbar/Navbar";
+import Navbar from "../organisms/Navbar/NavBar";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { Box, Typography } from "@mui/material";
 import { fetchUser } from "../../utils/fetchUser";
 import AllPosts from "../organisms/AllPosts";
-import ProfileEdit from "../organisms/ProfileEdit";
+import ProfileUser from "../organisms/ProfileUser";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -18,8 +18,7 @@ const Profile = () => {
   useEffect(() => {
     !user && fetchUser(navigate);
     user && fetchUser(navigate, { id, setProfile });
-    if (profile) console.log(profile);
-  }, []);
+  }, [profile]);
 
   return (
     <>
@@ -28,7 +27,7 @@ const Profile = () => {
 
       {profile && (
         <Box>
-          <ProfileEdit user={profile} />
+          <ProfileUser user={profile} />
           <AllPosts userId={profile._id} />
         </Box>
       )}

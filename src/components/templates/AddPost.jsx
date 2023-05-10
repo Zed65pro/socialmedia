@@ -10,7 +10,7 @@ import FormInputText from "../atoms/Input/FormInputFIeld";
 import FormInputHashtag from "../atoms/FormInputHashtag";
 import CreatePost from "../organisms/CreatePost";
 import Footer from "../organisms/Footer/Footer";
-import Navbar from "../organisms/Navbar/Navbar";
+import Navbar from "../organisms/Navbar/NavBar";
 
 const AddPost = () => {
   const navigate = useNavigate();
