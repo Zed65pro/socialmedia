@@ -33,7 +33,7 @@ const BadRoute = ({ link }) => {
             fontSize: "4rem",
           }}
         >
-          You have accessed a wrong route!
+          You have accessed a wrong route bitch!
         </Typography>
         <Button
           onClick={() => navigate(link)}

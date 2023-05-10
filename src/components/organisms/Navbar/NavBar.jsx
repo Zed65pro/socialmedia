@@ -24,14 +24,14 @@ const Navbar = ({ onLogout }) => {
   return (
     <>
       {user && (
-        <Box sx={{ marginBottom: { xs: "50%", md: "20%", lg: "10%" } }}>
+        <Box sx={{ marginBottom: { xs: "40%", md: "20%", lg: "10%" } }}>
           <AppBar className={classes.root}>
             <Toolbar xs={12} className={classes.navbar}>
               <Link
                 to={`${constants.BASE_URL}/${constants.HOME}`}
                 className={`${classes.title} ${classes.nav_element}`}
               >
-                <Typography variant="h3" sx={{ flexGrow: 1 }}>
+                <Typography variant="h5" sx={{ flexGrow: 1 }}>
                   SOCIALIX
                 </Typography>
               </Link>
@@ -63,8 +63,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "rgb(36,94,156)",
     background:
       "linear-gradient(90deg, rgba(20, 163, 214, 0.91) 15%, rgba(0,0,0,1) 85%)",
-    borderBottomRightRadius: "5px",
-    borderBottomLeftRadius: "5px",
+    // borderBottomRightRadius: "5px",
+    // borderBottomLeftRadius: "5px",
     boxShadow:
       "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
   },
@@ -97,7 +97,7 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       color: "#666",
     },
-    [theme.breakpoints.down("1024")]: {
+    [theme.breakpoints.down("1100")]: {
       display: "none!important",
     },
   },

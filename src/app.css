@@ -9,11 +9,11 @@
   }
 
   body{
-    background-color: "white";
+    background-color: "black";
     font-family: "Sofia", sans-serif;
   }
 
   a{
-    textDecoration: 'none'
+    text-decoration: 'none'
   }
   

@@ -3,13 +3,13 @@ import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
 import Signin from "./components/templates/Signin/Signin";
 import Signup from "./components/templates/Signup/Signup";
 import { constants } from "./constants";
-import "./app.css";
 import Home from "./components/pages/Home";
 import BadRoute from "./components/pages/BadRoute";
 import Profile from "./components/pages/Profile";
 import { fetchUser } from "./utils/fetchUser";
 import Friends from "./components/pages/Friends";
 import AddPost from "./components/templates/AddPost";
+import "./app.css";
 
 const App = () => {
   const navigate = useNavigate();

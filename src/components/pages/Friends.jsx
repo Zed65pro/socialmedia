@@ -1,5 +1,5 @@
 import { Box, Button, Grid, Paper, Typography } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { fetchUser } from "../../utils/fetchUser";
@@ -16,6 +16,7 @@ const Friends = () => {
   const navigate = useNavigate();
 
   const user = useSelector((state) => state.user);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     !user && fetchUser(navigate);
@@ -35,11 +36,14 @@ const Friends = () => {
 
     const email = event.target.email.value;
 
-    const newUser = await api.post(`/users/${user._id}/friends`, {
-      friendEmail: email,
-    });
-    console.log(newUser);
-    fetchUser(navigate);
+    try {
+      const newUser = await api.post(`/users/${user._id}/friends`, {
+        friendEmail: email,
+      });
+      fetchUser(navigate);
+    } catch (err) {
+      setError(err.response.data.error);
+    }
   };
   return (
     <div>
@@ -82,6 +86,13 @@ const Friends = () => {
               </Button>
             </Box>
           </Paper>
+          {error && (
+            <Box sx={{ textAlign: "center" }}>
+              <Typography variant="h6" color="secondary">
+                {error}
+              </Typography>
+            </Box>
+          )}
         </Grid>
       </Grid>
       <FriendList />

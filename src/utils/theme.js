@@ -6,6 +6,7 @@ const theme = createTheme({
     fontFamily: "AudioWide, sans-serif",
     fontSize: 16,
     fontWeight: 400,
+    color: "white",
   },
   palette: {
     primary: {

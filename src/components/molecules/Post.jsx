@@ -16,7 +16,7 @@ import { constants } from "../../constants.js";
 import api from "../../api/api.js";
 import { fetchPost } from "../../utils/fetchPost";
 
-const Post = ({ username, postId }) => {
+const Post = ({ username, postId, userId }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
@@ -24,6 +24,7 @@ const Post = ({ username, postId }) => {
   // const classes = useStyles();
   const [isLiked, setIsLiked] = useState(false);
   const [isDisliked, setIsDisliked] = useState(false);
+
   useEffect(() => {
     async function fetchData() {
       // fetchPost(postId);
@@ -106,9 +107,22 @@ const Post = ({ username, postId }) => {
                 </IconButton>
                 <Typography
                   variant="h6"
-                  sx={{ color: "white!important", mr: "5px" }}
+                  sx={{
+                    mr: "5px",
+                  }}
                 >
-                  {username}
+                  <Link
+                    to={`${constants.BASE_URL}/${constants.USER}/${userId}`}
+                    style={{
+                      textDecoration: "none",
+                      color: "white",
+                      ":hover": {
+                        color: "grey",
+                      },
+                    }}
+                  >
+                    {username}
+                  </Link>
                 </Typography>
               </Box>
               {user._id === post.userId && (

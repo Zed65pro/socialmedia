@@ -35,8 +35,8 @@ const Home = () => {
           {loading && <p>Loading...</p>}
           <Navbar onLogout={onLogout} />
           {/* <Feed /> */}
-          <SearchBar />
-          <AllPosts />
+          {/* <SearchBar /> */}
+          {/* <AllPosts /> */}
           <Footer />
         </>
       )}

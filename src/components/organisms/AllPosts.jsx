@@ -39,7 +39,12 @@ const AllPosts = ({ userId }) => {
         <Box sx={{ margin: "0 20%" }}>
           <Grid container spacing={4}>
             {posts.map((post) => (
-              <Post key={post._id} username={post.username} postId={post._id} />
+              <Post
+                key={post._id}
+                userId={post.userId}
+                username={post.username}
+                postId={post._id}
+              />
             ))}
           </Grid>
         </Box>
