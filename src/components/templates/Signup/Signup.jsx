@@ -19,9 +19,8 @@ const Signup = () => {
   const error = useSelector((state) => state.error);
   // const user = useSelector((state) => state.user);
   useEffect(() => {
-    console.log(getToken());
     getToken() && navigate(`${constants.BASE_URL}/${constants.HOME}`);
-  }, [navigate]);
+  }, []);
 
   const { handleSubmit, reset, control } = useForm({
     defaultValues: {

@@ -7,65 +7,65 @@ import { constants } from "../../constants";
 import { useNavigate } from "react-router-dom";
 import { Box, Button, Typography } from "@mui/material";
 import { profileSchema } from "../../Schemas/profileSchema";
-import Navbar from "./Navbar/NavBar";
 import Footer from "./Footer/Footer";
 import ProfilePictureUpload from "../molecules/ProfilePictureUpload";
-import { useSelector } from "react-redux";
 import api from "../../api/api";
 import { fetchUser } from "../../utils/fetchUser";
 import { DatePicker } from "@mui/x-date-pickers-pro";
+import { useSelector } from "react-redux";
+import { ErrorMessage } from "@hookform/error-message";
 
-const ProfileEdit = () => {
+const ProfileEdit = ({ setIsEdit }) => {
   const navigate = useNavigate();
-
-  const [error, setError] = useState(null);
   const user = useSelector((state) => state.user);
-
+  const [error, setError] = useState(null);
   const [image, setImage] = useState(null);
 
-  const { handleSubmit, reset, control } = useForm({
+  const {
+    handleSubmit,
+    reset,
+    control,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
       username: user ? user.username : "",
       email: user ? user.email : "",
-      dateOfBirth: user ? dayjs(user.dateOfBirth) : "",
+      dateOfBirth: user ? dayjs(user.dateOfBirth) : null,
     },
     resolver: yupResolver(profileSchema),
   });
-
-  useEffect(() => {
-    !user && navigate(`${constants.BASE_URL}/${constants.HOME}`);
-  }, []);
 
   const onSubmit = async (data, event) => {
     event.preventDefault();
 
     const username = event.target.username.value;
     const email = event.target.email.value;
-    const dateOfBirth = data.dateOfBirth;
+    const dateOfBirth = new Date(data.dateOfBirth); // Convert dayjs object to Date object
+    const formattedDate = dayjs(dateOfBirth).format("YYYY MM DD");
 
-    const formattedDate = dayjs(dateOfBirth).format("YYYY-MM-DD");
-    console.log(formattedDate);
     try {
       const response = await api.patch("/users/edit", {
         image,
         email,
         username,
-        formattedDate,
+        dateOfBirth: formattedDate,
       });
       fetchUser(navigate);
+      setIsEdit(false);
       console.log(response.data);
+      user = response.data.user;
       navigate(`${constants.BASE_URL}/${constants.USER}/${user._id}`);
     } catch (err) {
-      setError(err.response.data.error);
+      setError(err.response);
     }
   };
+
   if (!user) {
     return <div>Loading...</div>; // Render a loading indicator while fetching data
   }
 
   return (
     <>
-      <Navbar />
       {user && (
         <Box
           sx={{
@@ -110,21 +110,25 @@ const ProfileEdit = () => {
               control={control}
               name="dateOfBirth"
               render={({ field, fieldState }) => (
-                <DatePicker
-                  {...field}
-                  inputFormat="yyyy-MM-dd"
-                  label="Date of Birth"
-                  sx={{ width: "100%" }}
-                  // Any additional props you want to pass to the DatePicker component
-                  error={!!fieldState.error} // Set the error prop based on the presence of an error
-                  helperText={fieldState.error?.message} // Display the error message, if available
-                  onChange={(value) => {
-                    const formattedDate = dayjs(value).format("YYYY-MM-DD");
-                    field.onChange(formattedDate);
-                  }}
-                />
+                <>
+                  <DatePicker
+                    {...field}
+                    inputFormat="yyyy-MM-dd"
+                    label="Date of Birth"
+                    sx={{ width: "100%" }}
+                    error={!!fieldState.error}
+                  />
+                  <ErrorMessage
+                    errors={errors}
+                    name="dateOfBirth"
+                    render={({ message }) => (
+                      <Typography sx={{ color: "red" }}>{message}</Typography>
+                    )}
+                  />
+                </>
               )}
             />
+
             <Button
               type="submit"
               fullWidth

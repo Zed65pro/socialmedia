@@ -44,6 +44,9 @@ const Friends = () => {
       setError(err.response.data.error);
     }
   };
+
+  if (!user) return <div>User not fetched yet amk.</div>;
+
   return (
     <div>
       <Navbar />

@@ -36,11 +36,6 @@ const App = () => {
       />
       <Route
         exact
-        path={`${constants.BASE_URL}/${constants.PROFILE}`}
-        element={<ProfileEdit />}
-      />
-      <Route
-        exact
         path={`${constants.BASE_URL}/${constants.WRONG_ROUTE}`}
         element={
           <BadRoute link={`${constants.BASE_URL}/${constants.SIGN_IN}`} />

@@ -21,7 +21,7 @@ const Signin = () => {
 
   useEffect(() => {
     getToken() && navigate(`${constants.BASE_URL}/${constants.HOME}`);
-  }, [navigate]);
+  }, []);
 
   const { handleSubmit, reset, control } = useForm({
     defaultValues: {
