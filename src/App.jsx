@@ -42,7 +42,6 @@ const App = () => {
         }
       />
       <Route
-        exact
         path={`${constants.BASE_URL}/${constants.USER}/:id`}
         element={<Profile />}
       />

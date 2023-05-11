@@ -66,81 +66,79 @@ const ProfileEdit = ({ setIsEdit }) => {
 
   return (
     <>
-      {user && (
+      <Box
+        sx={{
+          my: 8,
+          mx: 4,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          padding: "2rem",
+        }}
+      >
+        <Typography variant="h2">Profile</Typography>
+        <ProfilePictureUpload image={image} setImage={setImage} />
         <Box
-          sx={{
-            my: 8,
-            mx: 4,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            padding: "2rem",
-          }}
+          component="form"
+          noValidate
+          onSubmit={handleSubmit(onSubmit)}
+          sx={{ mt: 1 }}
         >
-          <Typography variant="h2">Profile</Typography>
-          <ProfilePictureUpload image={image} setImage={setImage} />
-          <Box
-            component="form"
-            noValidate
-            onSubmit={handleSubmit(onSubmit)}
-            sx={{ mt: 1 }}
-          >
-            <FormInputText
-              control={control}
-              name="username"
-              label="Username"
-              autoFocus
-            />
-            <FormInputText
-              control={control}
-              name="email"
-              label="Email"
-              autoFocus
-            />
-            {error && (
-              <Typography
-                sx={{ textAlign: "center", color: "red" }}
-                position={"center"}
-                variant="h5"
-              >
-                {error}
-              </Typography>
-            )}
-            <Controller
-              control={control}
-              name="dateOfBirth"
-              render={({ field, fieldState }) => (
-                <>
-                  <DatePicker
-                    {...field}
-                    inputFormat="yyyy-MM-dd"
-                    label="Date of Birth"
-                    sx={{ width: "100%" }}
-                    error={!!fieldState.error}
-                  />
-                  <ErrorMessage
-                    errors={errors}
-                    name="dateOfBirth"
-                    render={({ message }) => (
-                      <Typography sx={{ color: "red" }}>{message}</Typography>
-                    )}
-                  />
-                </>
-              )}
-            />
-
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="secondary"
-              sx={{ mt: 3, mb: 2 }}
+          <FormInputText
+            control={control}
+            name="username"
+            label="Username"
+            autoFocus
+          />
+          <FormInputText
+            control={control}
+            name="email"
+            label="Email"
+            autoFocus
+          />
+          {error && (
+            <Typography
+              sx={{ textAlign: "center", color: "red" }}
+              position={"center"}
+              variant="h5"
             >
-              Update
-            </Button>
-          </Box>
+              {error}
+            </Typography>
+          )}
+          <Controller
+            control={control}
+            name="dateOfBirth"
+            render={({ field, fieldState }) => (
+              <>
+                <DatePicker
+                  {...field}
+                  inputFormat="yyyy-MM-dd"
+                  label="Date of Birth"
+                  sx={{ width: "100%" }}
+                  error={!!fieldState.error}
+                />
+                <ErrorMessage
+                  errors={errors}
+                  name="dateOfBirth"
+                  render={({ message }) => (
+                    <Typography sx={{ color: "red" }}>{message}</Typography>
+                  )}
+                />
+              </>
+            )}
+          />
+
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="secondary"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Update
+          </Button>
         </Box>
-      )}
+      </Box>
       <Footer />
     </>
   );

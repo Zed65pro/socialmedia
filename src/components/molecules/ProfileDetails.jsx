@@ -5,7 +5,7 @@ import { BsFileEarmarkPostFill } from "react-icons/bs";
 import { FaUserFriends } from "react-icons/fa";
 import { FiUser } from "react-icons/fi";
 
-const ProfileDetails = ({ user }) => {
+const ProfileDetails = ({ profile }) => {
   return (
     <Box
       sx={{
@@ -21,7 +21,7 @@ const ProfileDetails = ({ user }) => {
         }}
       >
         <EmailOutlined size="25" />
-        <Typography sx={{ ml: "5px" }}>{user.email}</Typography>
+        <Typography sx={{ ml: "5px" }}>{profile.email}</Typography>
       </Box>
       <hr
         style={{
@@ -37,7 +37,7 @@ const ProfileDetails = ({ user }) => {
         }}
       >
         <FiUser size="25" />
-        <Typography sx={{ ml: "5px" }}>{user.username}</Typography>
+        <Typography sx={{ ml: "5px" }}>{profile.username}</Typography>
       </Box>
       <hr
         style={{
@@ -53,7 +53,7 @@ const ProfileDetails = ({ user }) => {
         }}
       >
         <BsFileEarmarkPostFill size="25" />
-        <Typography sx={{ ml: "5px" }}>{user.posts.length}</Typography>
+        <Typography sx={{ ml: "5px" }}>{profile.posts.length}</Typography>
       </Box>
       <hr
         style={{
@@ -69,7 +69,7 @@ const ProfileDetails = ({ user }) => {
         }}
       >
         <FaUserFriends size="25" />
-        <Typography sx={{ ml: "5px" }}>{user.friends.length}</Typography>
+        <Typography sx={{ ml: "5px" }}>{profile.friends.length}</Typography>
       </Box>
       <hr
         style={{

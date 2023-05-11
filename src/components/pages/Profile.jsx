@@ -18,23 +18,30 @@ const Profile = () => {
   const [profile, setProfile] = useState(null);
 
   useEffect(() => {
-    !user && fetchUser(navigate);
-    user && !profile && fetchUser(navigate, { id, setProfile });
-  }, [user, profile]);
+    if (!user) {
+      fetchUser(navigate);
+    } else if (!profile && id) {
+      fetchUser(navigate, { id, setProfile });
+    }
 
-  if (!user) return <div>User not fetched yet amk.</div>;
+    return () => {
+      if (profile) {
+        setProfile(null); // Reset profile state to null when navigating away
+      }
+    };
+  }, [user, id, profile, navigate]);
+
+  if (!user || !profile) return <div>User not fetched yet amk.</div>;
 
   return (
     <>
       {loading && <p>Loading...</p>}
       <Navbar />
 
-      {profile && (
-        <Box>
-          <ProfileUser profile={profile} userId={user._id} />
-          <AllPosts userId={profile._id} />
-        </Box>
-      )}
+      <Box>
+        <ProfileUser profile={profile} />
+        <AllPosts userId={profile._id} />
+      </Box>
       {error && (
         <Typography
           sx={{ textAlign: "center", color: "red" }}

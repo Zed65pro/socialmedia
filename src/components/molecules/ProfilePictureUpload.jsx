@@ -1,9 +1,11 @@
 import { Box } from "@mui/material";
 import React from "react";
 import { CgProfile } from "react-icons/cg";
-import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-function ProfilePictureUpload({ setImage, image, profile, user }) {
+function ProfilePictureUpload({ setImage, image, profile }) {
+  const user = useSelector((state) => state.user);
+
   const handleFileSelect = (event) => {
     const file = event.target.files[0];
     const maxSizeInBytes = 5 * 1024 * 1024; // 3MB
