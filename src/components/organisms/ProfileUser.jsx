@@ -23,7 +23,7 @@ const ProfileUser = ({ user }) => {
       }}
     >
       <Paper elevation={3} sx={{ padding: "0rem 3rem", display: "flex" }}>
-        <ProfilePictureUpload />
+        <ProfilePictureUpload profile={user} />
         <div style={{ borderRight: "1px solid #ccc", margin: "0 1rem" }}></div>
         <ProfileDetails user={user} />
       </Paper>

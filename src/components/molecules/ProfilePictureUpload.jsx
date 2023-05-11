@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchUser } from "../../utils/fetchUser";
 
-function ProfilePictureUpload({ setImage, image }) {
+function ProfilePictureUpload({ setImage, image, profile }) {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
 
@@ -53,7 +53,13 @@ function ProfilePictureUpload({ setImage, image }) {
           <label htmlFor="profile-picture-input">
             {user.profilePicture || image ? (
               <img
-                src={image ? image : user.profilePicture}
+                src={
+                  image
+                    ? image
+                    : profile
+                    ? profile.profilePicture
+                    : user.profilePicture
+                }
                 alt="Profile"
                 style={{
                   marginBottom: "1rem",
@@ -80,7 +86,7 @@ function ProfilePictureUpload({ setImage, image }) {
               style={{ display: "none" }}
             />
           )}
-          {!user.profilePicture && (
+          {setImage && (
             <Button
               variant="contained"
               component="label"

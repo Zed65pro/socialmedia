@@ -17,7 +17,6 @@ const Friends = () => {
 
   const user = useSelector((state) => state.user);
   const [error, setError] = useState("");
-
   useEffect(() => {
     !user && fetchUser(navigate);
   }, []);
@@ -89,7 +88,7 @@ const Friends = () => {
           {error && (
             <Box sx={{ textAlign: "center" }}>
               <Typography variant="h6" color="secondary">
-                {error.message}
+                {error}
               </Typography>
             </Box>
           )}

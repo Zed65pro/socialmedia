@@ -6,18 +6,12 @@ import { constants } from "./constants";
 import Home from "./components/pages/Home";
 import BadRoute from "./components/pages/BadRoute";
 import Profile from "./components/pages/Profile";
-import { fetchUser } from "./utils/fetchUser";
 import Friends from "./components/pages/Friends";
 import AddPost from "./components/templates/AddPost";
 import "./app.css";
 import ProfileEdit from "./components/organisms/ProfileEdit";
 
 const App = () => {
-  const navigate = useNavigate();
-  useEffect(() => {
-    fetchUser(navigate);
-  }, []);
-
   return (
     <Routes>
       <Route
