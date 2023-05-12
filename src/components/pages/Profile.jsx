@@ -7,6 +7,7 @@ import { fetchUser } from "../../utils/fetchUser";
 import AllPosts from "../organisms/AllPosts";
 import ProfileUser from "../organisms/ProfileUser";
 import Footer from "../organisms/Footer/Footer";
+import StickyFooter from "../organisms/StickyFooter";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -51,6 +52,7 @@ const Profile = () => {
         </Typography>
       )}
       <Footer />
+      {/* <StickyFooter /> */}
     </>
   );
 };

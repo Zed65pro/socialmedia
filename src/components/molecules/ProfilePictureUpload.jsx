@@ -3,7 +3,7 @@ import React from "react";
 import { CgProfile } from "react-icons/cg";
 import { useSelector } from "react-redux";
 
-function ProfilePictureUpload({ setImage, image, profile }) {
+function ProfilePictureUpload({ setImage, image, profile, size }) {
   const user = useSelector((state) => state.user);
 
   const handleFileSelect = (event) => {
@@ -35,8 +35,8 @@ function ProfilePictureUpload({ setImage, image, profile }) {
       sx={{
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
+        // justifyContent: "center",
+        // alignItems: "center",
         margin: "1rem 0",
       }}
     >
@@ -54,8 +54,8 @@ function ProfilePictureUpload({ setImage, image, profile }) {
             style={{
               marginBottom: "1rem",
               borderRadius: "50%",
-              width: "300px",
-              height: "300px",
+              width: size ? size : "300px",
+              height: size ? size : "300px",
               objectFit: "cover",
               cursor: "pointer",
             }}

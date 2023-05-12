@@ -10,6 +10,8 @@ import { Box, Button, Typography } from "@mui/material";
 import { fetchUser } from "../../utils/fetchUser";
 import AllPosts from "../organisms/AllPosts";
 import SearchBar from "../organisms/SearchBar";
+import LeftPanel from "../organisms/LeftPanel";
+import RightPanel from "../organisms/RightPanel";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -27,7 +29,13 @@ const Home = () => {
     <>
       <Navbar />
       <SearchBar />
-      <AllPosts />
+      <hr style={{ margin: "3rem 0" }} />
+      <Box sx={{ display: "flex", justifyContent: "space-around" }}>
+        <LeftPanel />
+        <AllPosts />
+        <RightPanel />
+      </Box>
+
       <Footer />
     </>
   );

@@ -72,7 +72,7 @@ const Post = ({ username, postId, userId }) => {
   return (
     <>
       {post && user && (
-        <Grid item xs={12} md={12}>
+        <Grid item xs={12}>
           <Paper
             elevation={5}
             sx={{

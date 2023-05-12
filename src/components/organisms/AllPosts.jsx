@@ -1,4 +1,4 @@
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, Paper } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import api from "../../api/api";
 import Post from "../molecules/Post";
@@ -36,18 +36,20 @@ const AllPosts = ({ userId }) => {
   return (
     <>
       {posts && (
-        <Box sx={{ margin: "0 20%" }}>
-          <Grid container spacing={4}>
-            {posts.map((post) => (
-              <Post
-                key={post._id}
-                userId={post.userId}
-                username={post.username}
-                postId={post._id}
-              />
-            ))}
-          </Grid>
-        </Box>
+        <Grid
+          container
+          spacing={6}
+          sx={{ padding: "1rem", width: { md: "80%", lg: "40%" } }}
+        >
+          {posts.map((post) => (
+            <Post
+              key={post._id}
+              userId={post.userId}
+              username={post.username}
+              postId={post._id}
+            />
+          ))}
+        </Grid>
       )}
     </>
   );
