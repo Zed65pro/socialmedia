@@ -8,6 +8,7 @@ import AllPosts from "../organisms/AllPosts";
 import ProfileUser from "../organisms/ProfileUser";
 import Footer from "../organisms/Footer/Footer";
 import StickyFooter from "../organisms/StickyFooter";
+import { LoadingScreen } from "../atoms/LoadingScreen";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -32,8 +33,7 @@ const Profile = () => {
     };
   }, [user, id, profile, navigate]);
 
-  if (!user || !profile) return <div>User not fetched yet amk.</div>;
-
+  if (!user || !profile) return <LoadingScreen />;
   return (
     <>
       {loading && <p>Loading...</p>}
@@ -41,6 +41,7 @@ const Profile = () => {
 
       <Box>
         <ProfileUser profile={profile} />
+        <hr />
         <AllPosts userId={profile._id} />
       </Box>
       {error && (

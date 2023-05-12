@@ -42,7 +42,7 @@ const LeftPanel = () => {
       component={Paper}
     >
       <Box sx={{ display: "flex", alignItems: "center" }}>
-        <ProfilePictureUpload size={85} />
+        <ProfilePictureUpload size={85} profile={user} />
         <Typography
           variant="h6"
           sx={{ marginLeft: "1rem", textTransform: "capitalize" }}

@@ -15,7 +15,7 @@ import {
   USER_SUCCESS,
 } from "./authReducers";
 import { removeToken } from "./authStorage";
-import { POST_FAILURE, POST_REQUEST } from "./postReducers";
+import { POST_CREATE, POST_FAILURE, POST_REQUEST } from "./postReducers";
 
 //RESET ERROR
 export const RESET_ERROR = "RESET_ERROR";
@@ -51,6 +51,12 @@ export const authReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         user: action.payload,
+      };
+    case POST_CREATE:
+      return {
+        ...state,
+        loading: false,
+        error: null,
       };
     case LOGIN_FAILURE:
     case SIGNUP_FAILURE:

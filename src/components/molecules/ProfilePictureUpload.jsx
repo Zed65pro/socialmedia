@@ -4,8 +4,6 @@ import { CgProfile } from "react-icons/cg";
 import { useSelector } from "react-redux";
 
 function ProfilePictureUpload({ setImage, image, profile, size }) {
-  const user = useSelector((state) => state.user);
-
   const handleFileSelect = (event) => {
     const file = event.target.files[0];
     const maxSizeInBytes = 5 * 1024 * 1024; // 3MB
@@ -41,15 +39,9 @@ function ProfilePictureUpload({ setImage, image, profile, size }) {
       }}
     >
       <label htmlFor="profile-picture-input">
-        {user.profilePicture || image ? (
+        {profile.profilePicture || image ? (
           <img
-            src={
-              image
-                ? image
-                : profile
-                ? profile.profilePicture
-                : user.profilePicture
-            }
+            src={image ? image : profile.profilePicture}
             alt="Profile"
             style={{
               marginBottom: "1rem",
@@ -62,7 +54,7 @@ function ProfilePictureUpload({ setImage, image, profile, size }) {
           />
         ) : (
           <CgProfile
-            size="200"
+            size={size ? size : "200"}
             style={{ marginBottom: "1rem", cursor: "pointer" }}
           />
         )}

@@ -18,9 +18,9 @@ export const POST_FAILURE = "POST_FAILURE";
 export const postRequest = () => ({
   type: POST_REQUEST,
 });
-export const postCreateRequest = (post) => ({
+export const postCreateRequest = () => ({
   type: POST_CREATE,
-  payload: post,
+  // payload: post,
 });
 export const postUpdateRequest = (updatedPost) => ({
   type: POST_CREATE,
@@ -51,7 +51,7 @@ export const postCreate = (body, hashtags, userId, navigate) => {
       });
 
       const post = { body, hashtags, userId };
-      dispatch(postCreateRequest(post));
+      dispatch(postCreateRequest());
 
       navigate(`${constants.BASE_URL}/${constants.HOME}`);
     } catch (error) {

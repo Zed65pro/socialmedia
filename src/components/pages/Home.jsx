@@ -12,22 +12,26 @@ import AllPosts from "../organisms/AllPosts";
 import SearchBar from "../organisms/SearchBar";
 import LeftPanel from "../organisms/LeftPanel";
 import RightPanel from "../organisms/RightPanel";
+import LoadingCircle from "../atoms/LoadingCircle";
+import { LoadingScreen } from "../atoms/LoadingScreen";
 
 const Home = () => {
   const navigate = useNavigate();
 
   const user = useSelector((state) => state.user);
+  const loading = useSelector((state) => state.loading);
 
   useEffect(() => {
     !getToken() && navigate(`${constants.BASE_URL}/${constants.SIGN_IN}`);
     !user && fetchUser(navigate);
   }, []);
 
-  if (!user) return <div>User not fetched yet amk.</div>;
+  if (!user) return <LoadingScreen />;
 
   return (
     <>
       <Navbar />
+      {loading && <LoadingCircle />}
       <SearchBar />
       <hr style={{ margin: "3rem 0" }} />
       <Box sx={{ display: "flex", justifyContent: "space-around" }}>

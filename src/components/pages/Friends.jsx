@@ -11,6 +11,8 @@ import api from "../../api/api";
 import Navbar from "../organisms/Navbar/NavBar";
 import Footer from "../organisms/Footer/Footer";
 import FriendList from "../organisms/FriendList";
+import { LoadingScreen } from "../atoms/LoadingScreen";
+import { FaUserFriends } from "react-icons/fa";
 
 const Friends = () => {
   const navigate = useNavigate();
@@ -45,7 +47,7 @@ const Friends = () => {
     }
   };
 
-  if (!user) return <div>User not fetched yet amk.</div>;
+  if (!user) return <LoadingScreen />;
 
   return (
     <div>
@@ -97,6 +99,13 @@ const Friends = () => {
           )}
         </Grid>
       </Grid>
+      <hr style={{ marginTop: "2rem" }} />
+      <Box
+        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+      >
+        <FaUserFriends size="55" style={{ marginRight: "10px" }} />
+        <Typography variant="h4">Friends</Typography>
+      </Box>
       <FriendList />
       <Footer />
     </div>

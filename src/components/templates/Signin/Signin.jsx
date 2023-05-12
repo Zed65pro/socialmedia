@@ -5,11 +5,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { signinSchema } from "../../../Schemas/userSchema";
 import Form from "../../molecules/Form/Form";
 import { constants } from "../../../constants";
-import { Typography } from "@mui/material";
+import { Box, CircularProgress, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { signin } from "../../../storage/authReducers";
 import { getToken } from "../../../storage/authStorage.js";
+import LoadingCircle from "../../atoms/LoadingCircle";
 
 const Signin = () => {
   const dispatch = useDispatch();
@@ -49,7 +50,7 @@ const Signin = () => {
       onSubmit={onSubmit}
       handleSubmit={handleSubmit}
     >
-      {loading && <p>Loading...</p>}
+      {loading && <LoadingCircle />}
       <FormInputText
         control={control}
         name="email"

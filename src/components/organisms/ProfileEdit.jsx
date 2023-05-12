@@ -77,7 +77,11 @@ const ProfileEdit = ({ setIsEdit }) => {
         }}
       >
         <Typography variant="h2">Profile</Typography>
-        <ProfilePictureUpload image={image} setImage={setImage} />
+        <ProfilePictureUpload
+          image={image}
+          setImage={setImage}
+          profile={user}
+        />
         <Box
           component="form"
           noValidate

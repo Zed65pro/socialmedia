@@ -15,6 +15,7 @@ import { AiOutlineLike } from "react-icons/ai";
 import { constants } from "../../constants.js";
 import api from "../../api/api.js";
 import { fetchPost } from "../../utils/fetchPost";
+import { LoadingScreen } from "../atoms/LoadingScreen.jsx";
 
 const Post = ({ username, postId, userId }) => {
   const navigate = useNavigate();
@@ -24,6 +25,7 @@ const Post = ({ username, postId, userId }) => {
   // const classes = useStyles();
   const [isLiked, setIsLiked] = useState(false);
   const [isDisliked, setIsDisliked] = useState(false);
+  const loading = useSelector((state) => state.loading);
 
   useEffect(() => {
     async function fetchData() {
@@ -68,6 +70,8 @@ const Post = ({ username, postId, userId }) => {
     await api.delete(`/post/${postId}`);
     setPost(null);
   };
+
+  if (loading) return <LoadingScreen />;
 
   return (
     <>
@@ -184,12 +188,13 @@ const Post = ({ username, postId, userId }) => {
                 <Link
                   key={hashtag}
                   to={`${constants.BASE_URL}/${constants.HOME}`}
+                  style={{ textDecoration: "none" }}
                 >
                   <Typography
                     variant="h5"
                     sx={{
                       margin: "0 5px",
-                      color: "#DDD",
+                      color: "#DEEDF0",
                       "&:hover": {
                         color: "#fff",
                       },
