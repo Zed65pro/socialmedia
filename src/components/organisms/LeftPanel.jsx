@@ -11,16 +11,19 @@ import { useSelector } from "react-redux";
 import ProfilePictureUpload from "../molecules/ProfilePictureUpload";
 import { BiPlus } from "react-icons/bi";
 import { FaUserFriends } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { constants } from "../../constants";
 import { CgProfile } from "react-icons/cg";
+import { makeStyles } from "@mui/styles";
 
 const LeftPanel = () => {
   const user = useSelector((state) => state.user);
   const [displayedFriends, setDisplayedFriends] = useState(2);
+  const navigate = useNavigate();
+  // const classes = useStyles()
 
   const friends = user.friends.slice(0, displayedFriends);
-
+  console.log(friends);
   const handleShowMoreFriends = () => {
     if (displayedFriends + 2 <= user.friends.length) {
       setDisplayedFriends(displayedFriends + 2);
@@ -77,26 +80,36 @@ const LeftPanel = () => {
           </Button>
         </Link>
         <hr />
-        <Paper
+        <Box
           sx={{
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
-            backgroundColor: "grey",
+            textAlign: "center",
+            // backgroundColor: "grey",
           }}
         >
           {friends.map((friend, index) => (
-            <Link
-              to={`${constants.BASE_URL}/${constants.USER}/${friend._id}`}
-              style={{
-                textDecoration: "none",
-                color: "black",
+            <Button
+              sx={{
+                width: "100%",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
               }}
+              color="success"
+              onClick={() =>
+                navigate(
+                  `${constants.BASE_URL}/${constants.USER}/${friend.friendId}`
+                )
+              }
               key={index}
             >
               <Typography>{friend.friendName}</Typography>
-            </Link>
+              <hr style={{ width: "100%" }} />
+            </Button>
           ))}
           {displayedFriends < user.friends.length && (
             <IconButton onClick={handleShowMoreFriends}>
@@ -104,8 +117,8 @@ const LeftPanel = () => {
               <Typography>Show more friends</Typography>
             </IconButton>
           )}
-        </Paper>
-        <hr />
+        </Box>
+        {user.friends.length <= 0 && <hr />}
       </Box>
       <Box>
         <Link
@@ -124,5 +137,13 @@ const LeftPanel = () => {
     </Stack>
   );
 };
+
+// const useStyles = makeStyles((theme)=>{
+//   friend:{
+//     "&:hover":{
+//       backgroundColor:"grey"
+//     }
+//   }
+// })
 
 export default LeftPanel;

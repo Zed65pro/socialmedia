@@ -1,7 +1,6 @@
 import { Box } from "@mui/material";
 import React from "react";
 import { CgProfile } from "react-icons/cg";
-import { useSelector } from "react-redux";
 
 function ProfilePictureUpload({ setImage, image, profile, size }) {
   const handleFileSelect = (event) => {
@@ -40,18 +39,26 @@ function ProfilePictureUpload({ setImage, image, profile, size }) {
     >
       <label htmlFor="profile-picture-input">
         {profile.profilePicture || image ? (
-          <img
-            src={image ? image : profile.profilePicture}
-            alt="Profile"
-            style={{
-              marginBottom: "1rem",
-              borderRadius: "50%",
-              width: size ? size : "300px",
-              height: size ? size : "300px",
-              objectFit: "cover",
-              cursor: "pointer",
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
             }}
-          />
+          >
+            <img
+              src={image ? image : profile.profilePicture}
+              alt="Profile"
+              style={{
+                marginBottom: size ? 0 : "1rem",
+                borderRadius: "50%",
+                objectFit: "cover",
+                cursor: "pointer",
+              }}
+              width={size ? size : "300px"}
+              height={size ? size : "300px"}
+            />
+          </Box>
         ) : (
           <CgProfile
             size={size ? size : "200"}

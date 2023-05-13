@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchUser } from "../../../utils/fetchUser";
 import { logout } from "../../../storage/authReducers";
+import ProfilePictureUpload from "../../molecules/ProfilePictureUpload";
 
 const Navbar = () => {
   const navigate = useNavigate();

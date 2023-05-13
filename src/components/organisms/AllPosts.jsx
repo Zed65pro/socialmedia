@@ -1,4 +1,4 @@
-import { Box, Grid, IconButton } from "@mui/material";
+import { Box, Grid, IconButton, Typography } from "@mui/material";
 import React, { useCallback, useEffect, useState } from "react";
 import api from "../../api/api";
 import { LoadingScreen } from "../atoms/LoadingScreen";
@@ -59,11 +59,12 @@ const AllPosts = ({ userId }) => {
         <Box
           sx={{
             display: "flex",
+            flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
             width: { md: "80vw", lg: "40vw" },
             height: "100%",
-            margin: "5rem 0",
+            margin: "2rem 0",
           }}
         >
           <Grid container spacing={6}>
