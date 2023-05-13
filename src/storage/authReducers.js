@@ -70,7 +70,7 @@ export const userFailure = (error) => ({
 });
 
 // Reducers
-export const signup = (username, email, password, navigate) => {
+export const signup = (username, email, password, navigate, setApiError) => {
   return async (dispatch) => {
     dispatch(signupRequest());
 
@@ -86,13 +86,14 @@ export const signup = (username, email, password, navigate) => {
 
       navigate(`${constants.BASE_URL}/${constants.SIGN_IN}`);
     } catch (error) {
-      const errorMessage = error.response.data || "An unknown error occurred";
+      const errorMessage = error?.response?.data || "An unknown error occurred";
       dispatch(signupFailure(errorMessage));
+      setApiError(true);
     }
   };
 };
 
-export const signin = (email, password, navigate) => {
+export const signin = (email, password, navigate, setApiError) => {
   return async (dispatch) => {
     dispatch(loginRequest());
 
@@ -109,7 +110,8 @@ export const signin = (email, password, navigate) => {
       navigate(`${constants.BASE_URL}/${constants.HOME}`);
     } catch (error) {
       // Dispatch a failure action with the error object
-      const errorMessage = error.response.data || "An unknown error occurred";
+      const errorMessage = error?.response?.data || "An unknown error occurred";
+      setApiError(true);
       dispatch(loginFailure(errorMessage));
     }
   };
@@ -126,7 +128,8 @@ export const logout = (navigate) => {
 
       navigate(`${constants.BASE_URL}/${constants.SIGN_IN}`);
     } catch (error) {
-      const errorMessage = error.response.date || "An unknown error occurred.";
+      const errorMessage =
+        error?.response?.data || "An unknown error occurred.";
       dispatch(logoutFailure(errorMessage));
     }
   };

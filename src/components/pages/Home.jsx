@@ -21,12 +21,18 @@ const Home = () => {
   const user = useSelector((state) => state.user);
   const loading = useSelector((state) => state.loading);
 
+  const [apiError, setApiError] = useState(false);
+
   useEffect(() => {
     !getToken() && navigate(`${constants.BASE_URL}/${constants.SIGN_IN}`);
+    !user && navigate(`${constants.BASE_URL}/${constants.SIGN_IN}`);
     !user && fetchUser(navigate);
   }, []);
 
   if (!user) return <LoadingScreen />;
+
+  if (apiError)
+    return <LoadingScreen label="Failed to connect to database motherfucker" />;
 
   return (
     <>

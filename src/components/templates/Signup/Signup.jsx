@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import FormInputText from "../../atoms/Input/FormInputFIeld";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { signup } from "../../../storage/authReducers";
 import { Typography } from "@mui/material";
 import { getToken } from "../../../storage/authStorage";
+import { LoadingScreen } from "../../atoms/LoadingScreen";
 
 const Signup = () => {
   const dispatch = useDispatch();
@@ -17,9 +18,13 @@ const Signup = () => {
 
   const loading = useSelector((state) => state.loading);
   const error = useSelector((state) => state.error);
+  const user = useSelector((state) => state.user);
+
+  const [apiError, setApiError] = useState(false);
+
   // const user = useSelector((state) => state.user);
   useEffect(() => {
-    getToken() && navigate(`${constants.BASE_URL}/${constants.HOME}`);
+    getToken() && user && navigate(`${constants.BASE_URL}/${constants.HOME}`);
   }, []);
 
   const { handleSubmit, reset, control } = useForm({
@@ -38,8 +43,11 @@ const Signup = () => {
     const email = event.target.email.value;
     const password = event.target.password.value;
 
-    dispatch(signup(username, email, password, navigate));
+    dispatch(signup(username, email, password, navigate, setApiError));
   };
+
+  if (apiError)
+    return <LoadingScreen label="Failed to connect to database motherfucker" />;
 
   return (
     <Form

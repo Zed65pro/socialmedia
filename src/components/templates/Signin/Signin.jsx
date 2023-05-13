@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import FormInputText from "../../atoms/Input/FormInputFIeld";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -11,6 +11,7 @@ import { signin } from "../../../storage/authReducers";
 import { getToken } from "../../../storage/authStorage.js";
 import LoadingCircle from "../../atoms/LoadingCircle";
 import { Typography } from "@mui/material";
+import { LoadingScreen } from "../../atoms/LoadingScreen";
 
 const Signin = () => {
   const dispatch = useDispatch();
@@ -18,9 +19,12 @@ const Signin = () => {
 
   const loading = useSelector((state) => state.loading);
   const error = useSelector((state) => state.error);
+  const user = useSelector((state) => state.user);
+
+  const [apiError, setApiError] = useState(false);
 
   useEffect(() => {
-    getToken() && navigate(`${constants.BASE_URL}/${constants.HOME}`);
+    getToken() && user && navigate(`${constants.BASE_URL}/${constants.HOME}`);
   }, []);
 
   const { handleSubmit, reset, control } = useForm({
@@ -38,8 +42,12 @@ const Signin = () => {
     const email = event.target.email.value;
     const password = event.target.password.value;
     console.log(email, password);
-    dispatch(signin(email, password, navigate));
+
+    dispatch(signin(email, password, navigate, setApiError));
   };
+
+  if (apiError)
+    return <LoadingScreen label="Failed to connect to database motherfucker" />;
 
   return (
     <Form

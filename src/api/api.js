@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-  // baseURL: "http://localhost:3000/",
-  baseURL: "https://social-media-app-server-o938.onrender.com",
+  baseURL: "http://localhost:3002/",
+  // baseURL: "https://social-media-app-server-o938.onrender.com",
   timeout: 10000,
 });
 
