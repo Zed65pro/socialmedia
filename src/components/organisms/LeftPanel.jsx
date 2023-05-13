@@ -20,10 +20,8 @@ const LeftPanel = () => {
   const user = useSelector((state) => state.user);
   const [displayedFriends, setDisplayedFriends] = useState(2);
   const navigate = useNavigate();
-  // const classes = useStyles()
-
   const friends = user.friends.slice(0, displayedFriends);
-  console.log(friends);
+
   const handleShowMoreFriends = () => {
     if (displayedFriends + 2 <= user.friends.length) {
       setDisplayedFriends(displayedFriends + 2);
@@ -46,7 +44,7 @@ const LeftPanel = () => {
       <Box sx={{ display: "flex", alignItems: "center" }}>
         <ProfilePictureUpload size={85} profile={user} />
         <Typography
-          variant="h6"
+          variant="h5"
           sx={{ marginLeft: "1rem", textTransform: "capitalize" }}
         >
           {user.username}
@@ -54,31 +52,37 @@ const LeftPanel = () => {
       </Box>
       <hr />
       <Box>
-        <Link
-          to={`${constants.BASE_URL}/${constants.USER}/${user._id}`}
-          style={{ textDecoration: "none", color: "inherit" }}
-        >
-          <Button
-            sx={{ display: "flex", alignItems: "center", margin: "1rem 0" }}
+        <Button sx={{ margin: "3rem 0" }}>
+          <Link
+            to={`${constants.BASE_URL}/${constants.USER}/${user._id}`}
+            style={{
+              textDecoration: "none",
+              color: "inherit",
+              display: "flex",
+              alignItems: "center",
+            }}
           >
             <CgProfile size="35" style={{ margin: "0 1rem" }} />
             <Typography>Profile</Typography>
-          </Button>
-        </Link>
+          </Link>
+        </Button>
       </Box>
       <hr />
       <Box>
-        <Link
-          to={`${constants.BASE_URL}/${constants.FRIENDS}`}
-          style={{ textDecoration: "none", color: "inherit" }}
-        >
-          <Button
-            sx={{ display: "flex", alignItems: "center", margin: "1rem 0" }}
+        <Button sx={{ margin: "3rem 0" }}>
+          <Link
+            to={`${constants.BASE_URL}/${constants.FRIENDS}`}
+            style={{
+              textDecoration: "none",
+              color: "inherit",
+              display: "flex",
+              alignItems: "center",
+            }}
           >
             <FaUserFriends size="35" style={{ margin: "0 1rem" }} />
             <Typography>Friends</Typography>
-          </Button>
-        </Link>
+          </Link>
+        </Button>
         <hr />
         <Box
           sx={{
@@ -121,29 +125,24 @@ const LeftPanel = () => {
         {user.friends.length <= 0 && <hr />}
       </Box>
       <Box>
-        <Link
-          to={`${constants.BASE_URL}/${constants.ADDPOST}`}
-          style={{ textDecoration: "none", color: "inherit" }}
-        >
-          <Button
-            sx={{ display: "flex", alignItems: "center", margin: "1rem 0" }}
+        <Button sx={{ margin: "3rem 0" }}>
+          <Link
+            to={`${constants.BASE_URL}/${constants.ADDPOST}`}
+            style={{
+              textDecoration: "none",
+              color: "inherit",
+              display: "flex",
+              alignItems: "center",
+            }}
           >
             <BiPlus size="35" style={{ margin: "0 1rem" }} />
             <Typography>Add a post</Typography>
-          </Button>
-        </Link>
+          </Link>
+        </Button>
       </Box>
       <hr />
     </Stack>
   );
 };
-
-// const useStyles = makeStyles((theme)=>{
-//   friend:{
-//     "&:hover":{
-//       backgroundColor:"grey"
-//     }
-//   }
-// })
 
 export default LeftPanel;

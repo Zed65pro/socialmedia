@@ -24,7 +24,7 @@ const Form = ({ children, link, linkText, type, onSubmit, handleSubmit }) => {
       }}
     >
       <BackgroundSplit
-        url={`url(${require("../../../assets/background/intro-bg.jpg")})`}
+        url={require("../../../assets/background/intro-bg.jpg")}
         className={classes.background}
       />
       <Grid item sm={12} md={5} component={Paper} elevation={6} square>

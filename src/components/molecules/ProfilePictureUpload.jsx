@@ -54,6 +54,11 @@ function ProfilePictureUpload({ setImage, image, profile, size }) {
                 borderRadius: "50%",
                 objectFit: "cover",
                 cursor: "pointer",
+                imageRendering: [
+                  "-webkit-optimize-contrast",
+                  "crisp-edges",
+                  "pixelated",
+                ],
               }}
               width={size ? size : "300px"}
               height={size ? size : "300px"}

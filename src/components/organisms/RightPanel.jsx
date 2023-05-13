@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { logout } from "../../storage/authReducers";
 import { ads } from "../../ads";
 
-const LeftPanel = () => {
+const RightPanel = () => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -38,13 +38,9 @@ const LeftPanel = () => {
               justifyContent: "center",
               alignItems: "center",
             }}
+            key={ad.alt}
           >
-            <a
-              href={ad.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              key={ad.alt}
-            >
+            <a href={ad.link} target="_blank" rel="noopener noreferrer">
               <img
                 src={ad.path}
                 alt={ad.alt}
@@ -53,6 +49,11 @@ const LeftPanel = () => {
                   objectFit: "cover",
                   cursor: "pointer",
                   borderRadius: "10%",
+                  imageRendering: [
+                    "-webkit-optimize-contrast",
+                    "crisp-edges",
+                    "pixelated",
+                  ],
                 }}
                 width="100%"
                 height="200px"
@@ -75,4 +76,4 @@ const LeftPanel = () => {
   );
 };
 
-export default LeftPanel;
+export default RightPanel;
