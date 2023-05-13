@@ -11,7 +11,7 @@ const BackgroundSplit = ({ url, ...props }) => {
       sm={4}
       md={7}
       sx={{
-        display: "flex",
+        display: { md: "none", lg: "flex" },
         justifyContent: "center",
         alignItems: "center",
         position: "relative",
