@@ -3,25 +3,22 @@ import React, { useState } from "react";
 import ProfilePictureUpload from "../molecules/ProfilePictureUpload";
 import ProfileDetails from "../molecules/ProfileDetails";
 import { useNavigate } from "react-router-dom";
-import { constants } from "../../constants";
 import ProfileEdit from "./ProfileEdit";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { FaUserFriends } from "react-icons/fa";
 import { LoadingScreen } from "../atoms/LoadingScreen";
-import api from "../../api/api";
-import { fetchUser } from "../../utils/fetchUser";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import { HiOutlineUserRemove } from "react-icons/hi";
+import { addFriend, removeFriend } from "../../storage/authReducers";
 
 const ProfileUser = ({ profile }) => {
   const [isEdit, setIsEdit] = useState(false);
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const [error, setError] = useState("");
-  const navigate = useNavigate();
   const isFriend = () => {
     return user.friends.some((friend) => friend.friendId === profile._id);
   };
-  console.log(isFriend());
 
   const handleEdit = () => {
     setIsEdit(true);
@@ -32,11 +29,7 @@ const ProfileUser = ({ profile }) => {
 
   const onAddFriend = async () => {
     try {
-      const newUser = await api.post(`/users/${user._id}/friends`, {
-        friendId: profile._id,
-      });
-      fetchUser(navigate);
-      console.log(newUser);
+      dispatch(addFriend(profile._id));
     } catch (err) {
       setError(err.response.data.error);
     }
@@ -44,11 +37,7 @@ const ProfileUser = ({ profile }) => {
 
   const onRemoveFriend = async () => {
     try {
-      const newUser = await api.delete(`/users/friends/${profile._id}`, {
-        friendId: profile._id,
-      });
-      fetchUser(navigate);
-      console.log(newUser);
+      dispatch(removeFriend(profile._id));
     } catch (err) {
       setError(err.response.data.error);
     }

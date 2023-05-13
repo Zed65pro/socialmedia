@@ -12,12 +12,16 @@ import ProfilePictureUpload from "../molecules/ProfilePictureUpload";
 import api from "../../api/api";
 import { fetchUser } from "../../utils/fetchUser";
 import { DatePicker } from "@mui/x-date-pickers-pro";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ErrorMessage } from "@hookform/error-message";
+import { updateUser } from "../../storage/authReducers";
+import DatePickerAtom from "../atoms/DatePickerAtom";
 
 const ProfileEdit = ({ setIsEdit }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  const loading = useSelector((state) => state.loading);
   const [error, setError] = useState(null);
   const [image, setImage] = useState(null);
 
@@ -44,17 +48,11 @@ const ProfileEdit = ({ setIsEdit }) => {
     const formattedDate = dayjs(dateOfBirth).format("YYYY MM DD");
 
     try {
-      const response = await api.patch("/users/edit", {
-        image,
-        email,
-        username,
-        dateOfBirth: formattedDate,
-      });
-      fetchUser(navigate);
+      dispatch(
+        updateUser(user._id, image, email, username, formattedDate, navigate)
+      );
+
       setIsEdit(false);
-      console.log(response.data);
-      user = response.data.user;
-      navigate(`${constants.BASE_URL}/${constants.USER}/${user._id}`);
     } catch (err) {
       setError(err.response);
     }
@@ -109,35 +107,14 @@ const ProfileEdit = ({ setIsEdit }) => {
               {error}
             </Typography>
           )}
-          <Controller
-            control={control}
-            name="dateOfBirth"
-            render={({ field, fieldState }) => (
-              <>
-                <DatePicker
-                  {...field}
-                  inputFormat="yyyy-MM-dd"
-                  label="Date of Birth"
-                  sx={{ width: "100%" }}
-                  error={!!fieldState.error}
-                />
-                <ErrorMessage
-                  errors={errors}
-                  name="dateOfBirth"
-                  render={({ message }) => (
-                    <Typography sx={{ color: "red" }}>{message}</Typography>
-                  )}
-                />
-              </>
-            )}
-          />
-
+          <DatePickerAtom control={control} errors={errors} />
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="secondary"
             sx={{ mt: 3, mb: 2 }}
+            disabled={loading}
           >
             Update
           </Button>

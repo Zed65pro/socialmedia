@@ -1,7 +1,7 @@
 import { Box, Button, Grid, Paper, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchUser } from "../../utils/fetchUser";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -13,12 +13,14 @@ import Footer from "../organisms/Footer/Footer";
 import FriendList from "../organisms/FriendList";
 import { LoadingScreen } from "../atoms/LoadingScreen";
 import { FaUserFriends } from "react-icons/fa";
+import { addFriend, addFriendByEmail } from "../../storage/authReducers";
 
 const Friends = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user);
-  const [error, setError] = useState("");
+  const error = useSelector((state) => state.error);
   useEffect(() => {
     !user && fetchUser(navigate);
   }, []);
@@ -32,19 +34,13 @@ const Friends = () => {
     },
     resolver: yupResolver(friendSchema),
   });
+
   const onSubmit = async (data, event) => {
     event.preventDefault();
 
     const email = event.target.email.value;
 
-    try {
-      const newUser = await api.post(`/users/${user._id}/friends`, {
-        friendEmail: email,
-      });
-      fetchUser(navigate);
-    } catch (err) {
-      setError(err.response.data.error);
-    }
+    dispatch(addFriendByEmail(email));
   };
 
   if (!user) return <LoadingScreen />;

@@ -18,7 +18,19 @@ export const profileSchema = yup.object().shape({
     .email("Must be a valid email address")
     .required("This field can't be empty"),
   dateOfBirth: yup
-    .date("Date of birth must be a valid date")
-    .max(today, "Date of birth cannot be after today's date")
-    .nullable(true), // Allow null values for dateOfBirth field
+    .mixed()
+    .nullable(true) // Allow null values for dateOfBirth field
+    .test(
+      "valid-date",
+      "Date of birth must be a valid date",
+      (value) => value === null || dayjs(value).isValid()
+    )
+    .test(
+      "max-date",
+      "Date of birth cannot be after today's date",
+      (value) =>
+        value === null ||
+        dayjs(value).isBefore(today) ||
+        dayjs(value).isSame(today)
+    ),
 });

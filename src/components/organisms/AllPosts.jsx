@@ -1,10 +1,11 @@
 import { Box, Grid, IconButton } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import api from "../../api/api";
 import { LoadingScreen } from "../atoms/LoadingScreen";
 import Post from "../molecules/Post";
 import AddIcon from "@mui/icons-material/Add";
 import { BiPlus } from "react-icons/bi";
+import { fetchPost } from "../../utils/fetchPost";
 
 const AllPosts = ({ userId }) => {
   const [posts, setPosts] = useState([]);
@@ -14,28 +15,14 @@ const AllPosts = ({ userId }) => {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = userId
-        ? await api.get(`/post/user/${userId}`)
-        : await api.get(`/post/`);
-      const posts = response.data;
-
-      // Randomize the order of posts
-      const randomizedPosts = shuffleArray(posts);
-
-      const usernamePromises = randomizedPosts.map(async (post) => {
-        const response = await api.get(`/auth/username/${post.userId}`);
-        return response.data;
-      });
-
       try {
-        const usernames = await Promise.all(usernamePromises);
-        const result = randomizedPosts.map((post, index) => ({
-          username: usernames[index],
-          ...post,
-        }));
-        setPosts(result);
-        setVisiblePosts(result.slice(0, 3)); // Display initial 3 posts
-        setShowMore(result.length > 3); // Show more button if there are more than 3 posts
+        const posts = await fetchPost(userId);
+
+        // Randomize the order of posts
+        const randomizedPosts = shuffleArray(posts);
+        setPosts(randomizedPosts);
+        setVisiblePosts(randomizedPosts.slice(0, 3)); // Display initial 3 posts
+        setShowMore(randomizedPosts.length > 3); // Show more button if there are more than 3 posts
       } catch (error) {
         console.error(error);
       } finally {
@@ -53,7 +40,7 @@ const AllPosts = ({ userId }) => {
   };
 
   // Helper function to shuffle array elements
-  const shuffleArray = (array) => {
+  const shuffleArray = useCallback((array) => {
     const shuffledArray = [...array];
     for (let i = shuffledArray.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -63,7 +50,7 @@ const AllPosts = ({ userId }) => {
       ];
     }
     return shuffledArray;
-  };
+  }, []);
 
   return (
     <>
@@ -74,23 +61,18 @@ const AllPosts = ({ userId }) => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
+            width: { md: "80vw", lg: "40vw" },
+            height: "100%",
+            margin: "5rem 0",
           }}
         >
-          <Grid
-            container
-            spacing={6}
-            sx={{
-              padding: "1rem",
-              width: { md: "80%", lg: "60%" },
-            }}
-          >
+          <Grid container spacing={6}>
             {visiblePosts.map((post, index) => (
-              <React.Fragment>
+              <React.Fragment key={post._id}>
                 <Post
-                  userId={post.userId}
-                  username={post.username}
+                  userId={post.user.userId}
+                  username={post.user.username}
                   postId={post._id}
-                  key={post._id}
                 />
                 {index === visiblePosts.length - 1 && (
                   <Grid item xs={12}>

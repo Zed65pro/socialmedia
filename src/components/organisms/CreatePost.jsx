@@ -1,7 +1,10 @@
 import { Box, Button, Grid, Paper, Typography } from "@mui/material";
 import React from "react";
+import { useSelector } from "react-redux";
 
 const CreatePost = ({ children, onSubmit, handleSubmit }) => {
+  const loading = useSelector((state) => state.loading);
+
   return (
     <Grid
       container
@@ -38,6 +41,7 @@ const CreatePost = ({ children, onSubmit, handleSubmit }) => {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              disabled={loading}
             >
               Create
             </Button>

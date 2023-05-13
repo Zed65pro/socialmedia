@@ -39,7 +39,7 @@ export const postFailure = (error) => ({
 //     payload: error,
 //   });
 
-export const postCreate = (body, hashtags, userId, navigate) => {
+export const postCreate = (body, hashtags, userId, username, navigate) => {
   return async (dispatch) => {
     dispatch(postRequest());
 
@@ -48,9 +48,8 @@ export const postCreate = (body, hashtags, userId, navigate) => {
         body,
         hashtags,
         userId,
+        username,
       });
-
-      const post = { body, hashtags, userId };
       dispatch(postCreateRequest());
 
       navigate(`${constants.BASE_URL}/${constants.HOME}`);

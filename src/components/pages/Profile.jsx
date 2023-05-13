@@ -42,7 +42,15 @@ const Profile = () => {
       <Box>
         <ProfileUser profile={profile} />
         <hr />
-        <AllPosts userId={profile._id} />
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <AllPosts userId={profile._id} />
+        </Box>
       </Box>
       {error && (
         <Typography

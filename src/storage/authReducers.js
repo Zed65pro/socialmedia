@@ -147,3 +147,77 @@ export const getCurrentUser = (navigate) => {
     }
   };
 };
+
+export const updateUser = (
+  userId,
+  image,
+  email,
+  username,
+  dateOfBirth,
+  navigate
+) => {
+  return async (dispatch) => {
+    dispatch(userRequest());
+
+    try {
+      const response = await api.patch("/users/edit", {
+        image,
+        email,
+        username,
+        dateOfBirth,
+      });
+      dispatch(userSuccess(response.data.user));
+      navigate(`${constants.BASE_URL}/${constants.USER}/${userId}`);
+    } catch (error) {
+      const errorMessage = error.response.data || "An unknown error occurred.";
+      dispatch(userFailure(errorMessage));
+    }
+  };
+};
+
+export const addFriend = (friendId, friend) => {
+  return async (dispatch) => {
+    dispatch(userRequest());
+
+    try {
+      const response = await api.post(`/users/friends`, {
+        friendId,
+      });
+      dispatch(userSuccess(response.data));
+    } catch (error) {
+      const errorMessage = error.response.data || "An unknown error occurred.";
+      dispatch(userFailure(errorMessage));
+    }
+  };
+};
+
+export const addFriendByEmail = (friendEmail) => {
+  return async (dispatch) => {
+    dispatch(userRequest());
+
+    try {
+      const response = await api.post(`/users/friends`, {
+        friendEmail,
+      });
+      dispatch(userSuccess(response.data));
+    } catch (error) {
+      const errorMessage =
+        error.response.data.error || "An unknown error occurred.";
+      dispatch(userFailure(errorMessage));
+    }
+  };
+};
+
+export const removeFriend = (friendId) => {
+  return async (dispatch) => {
+    dispatch(userRequest());
+
+    try {
+      const response = await api.delete(`/users/friends/${friendId}`);
+      dispatch(userSuccess(response.data));
+    } catch (error) {
+      const errorMessage = error.response.data || "An unknown error occurred.";
+      dispatch(userFailure(errorMessage));
+    }
+  };
+};

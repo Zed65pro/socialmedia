@@ -1,8 +1,7 @@
 import { Box, Grid, IconButton, Paper, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { CgProfile } from "react-icons/cg";
 import { BiDislike } from "react-icons/bi";
-import { IoPersonAddOutline } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../storage/authReducers.js";
 import { Link, useNavigate } from "react-router-dom";
@@ -14,31 +13,31 @@ import { RiDeleteBin5Fill } from "react-icons/ri";
 import { AiOutlineLike } from "react-icons/ai";
 import { constants } from "../../constants.js";
 import api from "../../api/api.js";
-import { fetchPost } from "../../utils/fetchPost";
+import { fetchPostById } from "../../utils/fetchPost";
 import { LoadingScreen } from "../atoms/LoadingScreen.jsx";
+import LoadingCircle from "../atoms/LoadingCircle.jsx";
 
-const Post = ({ username, postId, userId }) => {
+const Post = memo(({ username, postId, userId }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const [post, setPost] = useState(null);
-  // const classes = useStyles();
   const [isLiked, setIsLiked] = useState(false);
   const [isDisliked, setIsDisliked] = useState(false);
-  const loading = useSelector((state) => state.loading);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
-      // fetchPost(postId);
       let post = null;
       let response_isDisliked = null;
       let response_isLiked = null;
       if (postId) {
-        post = await fetchPost(postId);
+        post = await fetchPostById(postId);
         response_isLiked = await api.get(`/post/liked/${post._id}`);
         response_isDisliked = await api.get(`/post/disliked/${post._id}`);
       }
 
+      setLoading(false);
       setIsLiked(response_isLiked?.data);
       setIsDisliked(response_isDisliked?.data);
       setPost(post);
@@ -71,7 +70,20 @@ const Post = ({ username, postId, userId }) => {
     setPost(null);
   };
 
-  if (loading) return <LoadingScreen />;
+  if (loading)
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
+          height: "30vh",
+        }}
+      >
+        <LoadingCircle />;
+      </Box>
+    );
 
   return (
     <>
@@ -84,7 +96,7 @@ const Post = ({ username, postId, userId }) => {
               flexDirection: "column",
               background:
                 "linear-gradient(90deg, rgba(40, 120, 150, 0.91) 15%, rgba(0,0,0,1) 85%)",
-              padding: "1rem",
+              padding: "2rem",
             }}
           >
             <Box sx={{ display: "flex", justifyContent: "center" }}>
@@ -138,21 +150,18 @@ const Post = ({ username, postId, userId }) => {
                 </IconButton>
               )}
 
-              {/* <Box sx={{ display: "flex" }}>
-          <IconButton
-            sx={{ backgroundColor: "green", color: "#fff", mr: "5px" }}
-            onClick={onLogout}
-          >
-            <IoPersonAddOutline />
-          </IconButton>
-
-          <IconButton
-            sx={{ backgroundColor: "#ff3d00", color: "#fff" }}
-            onClick={onLogout}
-          >
-            <FiLogOut />
-          </IconButton>
-        </Box> */}
+              <Box sx={{ display: "flex" }}>
+                <IconButton
+                  sx={{ color: "#fff" }}
+                  onClick={() =>
+                    navigate(
+                      `${constants.BASE_URL}/${constants.USER}/${userId}`
+                    )
+                  }
+                >
+                  <FiLogOut />
+                </IconButton>
+              </Box>
             </Box>
             <DividerAtom
               light={true}
@@ -261,7 +270,7 @@ const Post = ({ username, postId, userId }) => {
       )}
     </>
   );
-};
+});
 
 // const useStyles = makeStyles((theme) => ({}));
 

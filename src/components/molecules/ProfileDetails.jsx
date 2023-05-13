@@ -53,7 +53,7 @@ const ProfileDetails = ({ profile }) => {
         }}
       >
         <BsFileEarmarkPostFill size="25" />
-        <Typography sx={{ ml: "5px" }}>{profile.posts.length}</Typography>
+        <Typography sx={{ ml: "5px" }}>Posts {profile.posts.length}</Typography>
       </Box>
       <hr
         style={{
@@ -69,7 +69,9 @@ const ProfileDetails = ({ profile }) => {
         }}
       >
         <FaUserFriends size="25" />
-        <Typography sx={{ ml: "5px" }}>{profile.friends.length}</Typography>
+        <Typography sx={{ ml: "5px" }}>
+          Friends {profile.friends.length}
+        </Typography>
       </Box>
       <hr
         style={{

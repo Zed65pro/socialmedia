@@ -32,7 +32,7 @@ const AddPost = () => {
   const onSubmit = async (data, event) => {
     event.preventDefault();
     const { body, hashtags } = data;
-    dispatch(postCreate(body, hashtags, user._id, navigate));
+    dispatch(postCreate(body, hashtags, user._id, user.username, navigate));
   };
 
   return (

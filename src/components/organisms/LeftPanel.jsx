@@ -20,7 +20,6 @@ const LeftPanel = () => {
   const [displayedFriends, setDisplayedFriends] = useState(2);
 
   const friends = user.friends.slice(0, displayedFriends);
-  console.log(friends);
 
   const handleShowMoreFriends = () => {
     if (displayedFriends + 2 <= user.friends.length) {
@@ -84,10 +83,20 @@ const LeftPanel = () => {
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
+            backgroundColor: "grey",
           }}
         >
           {friends.map((friend, index) => (
-            <Typography key={index}>{friend.friendName}</Typography>
+            <Link
+              to={`${constants.BASE_URL}/${constants.USER}/${friend._id}`}
+              style={{
+                textDecoration: "none",
+                color: "black",
+              }}
+              key={index}
+            >
+              <Typography>{friend.friendName}</Typography>
+            </Link>
           ))}
           {displayedFriends < user.friends.length && (
             <IconButton onClick={handleShowMoreFriends}>

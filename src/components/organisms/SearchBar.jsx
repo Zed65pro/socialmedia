@@ -81,7 +81,7 @@ const SearchBar = () => {
           ),
         }}
       />
-      <Box sx={{ width: "auto", border: "1px solid black" }}>
+      <Box sx={{ width: "15vw", border: "1px solid black" }}>
         {users.length > 0 && (
           <Box>
             <Box
