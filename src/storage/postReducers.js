@@ -39,7 +39,14 @@ export const postFailure = (error) => ({
 //     payload: error,
 //   });
 
-export const postCreate = (body, hashtags, userId, username, navigate) => {
+export const postCreate = (
+  body,
+  hashtags,
+  userId,
+  username,
+  image,
+  navigate
+) => {
   return async (dispatch) => {
     dispatch(postRequest());
 
@@ -49,10 +56,11 @@ export const postCreate = (body, hashtags, userId, username, navigate) => {
         hashtags,
         userId,
         username,
+        image,
       });
       dispatch(postCreateRequest());
 
-      navigate(`${constants.BASE_URL}/${constants.HOME}`);
+      navigate(`${constants.BASE_URL}/${constants.USER}/${userId}`);
     } catch (error) {
       const errorMessage = error.response.data || "An unknown error occurred";
       dispatch(postFailure(errorMessage));

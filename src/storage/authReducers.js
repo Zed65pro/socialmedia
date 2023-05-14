@@ -104,7 +104,6 @@ export const signin = (email, password, navigate, setApiError) => {
       });
 
       const user = response.data.user;
-      console.log(response.data.token);
       saveToken(response.data.token);
       dispatch(loginSuccess(user));
       navigate(`${constants.BASE_URL}/${constants.HOME}`);

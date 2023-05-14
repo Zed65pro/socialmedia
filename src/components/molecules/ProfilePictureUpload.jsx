@@ -2,7 +2,14 @@ import { Box } from "@mui/material";
 import React from "react";
 import { CgProfile } from "react-icons/cg";
 
-function ProfilePictureUpload({ setImage, image, profile, size }) {
+function ProfilePictureUpload({
+  setImage,
+  image,
+  profile,
+  size,
+  isPost,
+  margin,
+}) {
   const handleFileSelect = (event) => {
     const file = event.target.files[0];
     const maxSizeInBytes = 5 * 1024 * 1024; // 3MB
@@ -38,12 +45,13 @@ function ProfilePictureUpload({ setImage, image, profile, size }) {
       }}
     >
       <label htmlFor="profile-picture-input">
-        {profile.profilePicture || image ? (
+        {profile?.profilePicture || image ? (
           <Box
             sx={{
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
+              marginRight: margin ? margin : 0,
             }}
           >
             <img
@@ -51,7 +59,7 @@ function ProfilePictureUpload({ setImage, image, profile, size }) {
               alt="Profile"
               style={{
                 marginBottom: size ? 0 : "1rem",
-                borderRadius: "50%",
+                borderRadius: isPost ? "0" : "50%",
                 objectFit: "cover",
                 cursor: "pointer",
                 imageRendering: [
@@ -64,11 +72,18 @@ function ProfilePictureUpload({ setImage, image, profile, size }) {
               height={size ? size : "300px"}
             />
           </Box>
-        ) : (
+        ) : !isPost ? (
           <CgProfile
             size={size ? size : "200"}
-            style={{ marginBottom: "1rem", cursor: "pointer" }}
+            style={{
+              marginBottom: size ? 0 : "1rem",
+              cursor: "pointer",
+            }}
+            width={size ? size : "300px"}
+            height={size ? size : "300px"}
           />
+        ) : (
+          ""
         )}
       </label>
       {setImage && (
@@ -77,7 +92,7 @@ function ProfilePictureUpload({ setImage, image, profile, size }) {
           type="file"
           accept="image/*"
           onChange={handleFileSelect}
-          style={{ display: "none" }}
+          style={{ display: isPost ? "block" : "none" }}
         />
       )}
     </Box>

@@ -2,8 +2,6 @@ import { Grid } from "@mui/material";
 import React from "react";
 
 const BackgroundSplit = ({ url, ...props }) => {
-  console.log(url);
-
   return (
     <Grid
       item

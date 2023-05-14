@@ -25,7 +25,6 @@ const Home = () => {
 
   useEffect(() => {
     !getToken() && navigate(`${constants.BASE_URL}/${constants.SIGN_IN}`);
-    !user && navigate(`${constants.BASE_URL}/${constants.SIGN_IN}`);
     !user && fetchUser(navigate);
   }, []);
 

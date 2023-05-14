@@ -41,7 +41,6 @@ const Signin = () => {
 
     const email = event.target.email.value;
     const password = event.target.password.value;
-    console.log(email, password);
 
     dispatch(signin(email, password, navigate, setApiError));
   };

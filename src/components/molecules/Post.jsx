@@ -9,30 +9,37 @@ import { Link, useNavigate } from "react-router-dom";
 import DividerAtom from "../atoms/DividerAtom.jsx";
 import { FiLogOut } from "react-icons/fi";
 import { RiDeleteBin5Fill } from "react-icons/ri";
-
+import ProfilePictureUpload from "./ProfilePictureUpload.jsx";
 import { AiOutlineLike } from "react-icons/ai";
 import { constants } from "../../constants.js";
 import api from "../../api/api.js";
 import { fetchPostById } from "../../utils/fetchPost";
 import { LoadingScreen } from "../atoms/LoadingScreen.jsx";
 import LoadingCircle from "../atoms/LoadingCircle.jsx";
+import background from "../../assets/AnkaraUniv.png";
+import { fetchUser } from "../../utils/fetchUser.js";
+import PostOverlay from "./PostOverlay.jsx";
 
 const Post = memo(({ username, postId, userId }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  const [postUser, setPostUser] = useState(null);
   const [post, setPost] = useState(null);
   const [isLiked, setIsLiked] = useState(false);
   const [isDisliked, setIsDisliked] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [showOverlay, setShowOverlay] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
       let post = null;
       let response_isDisliked = null;
       let response_isLiked = null;
+      let postUser_ = null;
       if (postId) {
         post = await fetchPostById(postId);
+        postUser_ = await api.get(`/users/${userId}`);
         response_isLiked = await api.get(`/post/liked/${post._id}`);
         response_isDisliked = await api.get(`/post/disliked/${post._id}`);
       }
@@ -41,9 +48,14 @@ const Post = memo(({ username, postId, userId }) => {
       setIsLiked(response_isLiked?.data);
       setIsDisliked(response_isDisliked?.data);
       setPost(post);
+      setPostUser(postUser_.data);
     }
     fetchData();
   }, []);
+
+  const toggleOverlay = () => {
+    setShowOverlay((prev) => !prev);
+  };
 
   const onLogout = () => {
     dispatch(logout(navigate));
@@ -67,6 +79,7 @@ const Post = memo(({ username, postId, userId }) => {
 
   const onDeletePost = async () => {
     await api.delete(`/post/${postId}`);
+    fetchUser(navigate);
     setPost(null);
   };
 
@@ -87,7 +100,15 @@ const Post = memo(({ username, postId, userId }) => {
 
   return (
     <>
-      {post && user && (
+      {showOverlay && (
+        <PostOverlay
+          onClose={toggleOverlay}
+          post_={post}
+          postUser={postUser}
+          profilePicture={postUser.profilePicture}
+        />
+      )}
+      {post && postUser && (
         <Grid item xs={12}>
           <Paper
             elevation={5}
@@ -108,8 +129,8 @@ const Post = memo(({ username, postId, userId }) => {
                   width: "100%",
                 }}
               >
-                <IconButton
-                  onClick={onLogout}
+                <ProfilePictureUpload profile={postUser} size={45} margin={2} />
+                {/* <IconButton
                   sx={{
                     color: "#fff",
                     trasition: "all 0.3 ease-in",
@@ -120,7 +141,7 @@ const Post = memo(({ username, postId, userId }) => {
                   }}
                 >
                   <CgProfile size="35" />
-                </IconButton>
+                </IconButton> */}
                 <Typography
                   variant="h6"
                   sx={{
@@ -141,7 +162,7 @@ const Post = memo(({ username, postId, userId }) => {
                   </Link>
                 </Typography>
               </Box>
-              {user._id === post.userId && (
+              {user._id === post.user.userId && (
                 <IconButton
                   sx={{ color: "red", mr: "5px" }}
                   onClick={onDeletePost}
@@ -151,14 +172,7 @@ const Post = memo(({ username, postId, userId }) => {
               )}
 
               <Box sx={{ display: "flex" }}>
-                <IconButton
-                  sx={{ color: "#fff" }}
-                  onClick={() =>
-                    navigate(
-                      `${constants.BASE_URL}/${constants.USER}/${userId}`
-                    )
-                  }
-                >
+                <IconButton sx={{ color: "#fff" }} onClick={toggleOverlay}>
                   <FiLogOut />
                 </IconButton>
               </Box>
@@ -186,6 +200,28 @@ const Post = memo(({ username, postId, userId }) => {
               light={true}
               sx={{ backgroundColor: "#fff", opacity: "0.4" }}
             />
+
+            {post.image && (
+              <>
+                <Box
+                  component="img"
+                  sx={{
+                    height: "100%",
+                    width: "100%",
+                    // maxHeight: { xs: 233, md: 167 },
+                    // maxWidth: { xs: 350, md: 250 },
+                  }}
+                  alt="The house from the offer."
+                  src={post.image}
+                />
+
+                <DividerAtom
+                  light={true}
+                  sx={{ backgroundColor: "#fff", opacity: "0.4" }}
+                />
+              </>
+            )}
+
             <Box
               sx={{
                 display: "flex",

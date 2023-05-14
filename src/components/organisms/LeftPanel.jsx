@@ -71,6 +71,23 @@ const LeftPanel = () => {
       <Box>
         <Button sx={{ margin: "3rem 0" }}>
           <Link
+            to={`${constants.BASE_URL}/${constants.ADDPOST}`}
+            style={{
+              textDecoration: "none",
+              color: "inherit",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <BiPlus size="35" style={{ margin: "0 1rem" }} />
+            <Typography>Add a post</Typography>
+          </Link>
+        </Button>
+      </Box>
+      <hr />
+      <Box>
+        <Button sx={{ margin: "3rem 0" }}>
+          <Link
             to={`${constants.BASE_URL}/${constants.FRIENDS}`}
             style={{
               textDecoration: "none",
@@ -124,23 +141,6 @@ const LeftPanel = () => {
         </Box>
         {user.friends.length <= 0 && <hr />}
       </Box>
-      <Box>
-        <Button sx={{ margin: "3rem 0" }}>
-          <Link
-            to={`${constants.BASE_URL}/${constants.ADDPOST}`}
-            style={{
-              textDecoration: "none",
-              color: "inherit",
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            <BiPlus size="35" style={{ margin: "0 1rem" }} />
-            <Typography>Add a post</Typography>
-          </Link>
-        </Button>
-      </Box>
-      <hr />
     </Stack>
   );
 };
