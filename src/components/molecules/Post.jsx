@@ -19,35 +19,30 @@ import LoadingCircle from "../atoms/LoadingCircle.jsx";
 import background from "../../assets/AnkaraUniv.png";
 import { fetchUser } from "../../utils/fetchUser.js";
 import PostOverlay from "./PostOverlay.jsx";
+import { useLikeDislike } from "../../hooks/likesAndDislikes.js";
 
-const Post = memo(({ username, postId, userId }) => {
+const Post = memo(({ post_, username, postId, userId }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const [postUser, setPostUser] = useState(null);
-  const [post, setPost] = useState(null);
-  const [isLiked, setIsLiked] = useState(false);
-  const [isDisliked, setIsDisliked] = useState(false);
   const [loading, setLoading] = useState(true);
+
+  const [post, setPost] = useState(post_);
   const [showOverlay, setShowOverlay] = useState(false);
+
+  const { likesCount, isLiked, dislikesCount, isDisliked, onLike, onDislike } =
+    useLikeDislike(post_, userId);
 
   useEffect(() => {
     async function fetchData() {
-      let post = null;
-      let response_isDisliked = null;
-      let response_isLiked = null;
       let postUser_ = null;
+
       if (postId) {
-        post = await fetchPostById(postId);
         postUser_ = await api.get(`/users/${userId}`);
-        response_isLiked = await api.get(`/post/liked/${post._id}`);
-        response_isDisliked = await api.get(`/post/disliked/${post._id}`);
       }
 
       setLoading(false);
-      setIsLiked(response_isLiked?.data);
-      setIsDisliked(response_isDisliked?.data);
-      setPost(post);
       setPostUser(postUser_.data);
     }
     fetchData();
@@ -61,25 +56,8 @@ const Post = memo(({ username, postId, userId }) => {
     dispatch(logout(navigate));
   };
 
-  const onLike = async () => {
-    const response = await api.patch(`/post/likes/${post._id}`);
-    const updatedPost = response.data;
-    setPost(updatedPost);
-    setIsLiked((state) => !state);
-    if (isDisliked) setIsDisliked((state) => !state);
-  };
-
-  const onDislike = async () => {
-    const response = await api.patch(`/post/dislikes/${post._id}`);
-    const updatedPost = response.data;
-    setPost(updatedPost);
-    setIsDisliked((state) => !state);
-    if (isLiked) setIsLiked((state) => !state);
-  };
-
   const onDeletePost = async () => {
     await api.delete(`/post/${postId}`);
-    fetchUser(navigate);
     setPost(null);
   };
 
@@ -103,7 +81,7 @@ const Post = memo(({ username, postId, userId }) => {
       {showOverlay && (
         <PostOverlay
           onClose={toggleOverlay}
-          post_={post}
+          post={post}
           postUser={postUser}
           profilePicture={postUser.profilePicture}
         />
@@ -270,7 +248,7 @@ const Post = memo(({ username, postId, userId }) => {
                     sx={{ fontSize: "1rem", mr: "5px" }}
                     color="green"
                   >
-                    {post.likesCount}
+                    {likesCount}
                   </Typography>
                   {!isLiked ? (
                     <AiOutlineLike size="25" />
@@ -291,7 +269,7 @@ const Post = memo(({ username, postId, userId }) => {
                     sx={{ fontSize: "1rem", mr: "5px" }}
                     color="secondary"
                   >
-                    {post.dislikesCount}
+                    {dislikesCount}
                   </Typography>
                   {!isDisliked ? (
                     <BiDislike size="25" />

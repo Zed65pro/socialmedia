@@ -45,6 +45,7 @@ export const postCreate = (
   userId,
   username,
   image,
+  profilePicture,
   navigate
 ) => {
   return async (dispatch) => {
@@ -57,6 +58,7 @@ export const postCreate = (
         userId,
         username,
         image,
+        profilePicture,
       });
       dispatch(postCreateRequest());
 

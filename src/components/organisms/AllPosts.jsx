@@ -71,6 +71,7 @@ const AllPosts = ({ userId }) => {
             {visiblePosts.map((post, index) => (
               <React.Fragment key={post._id}>
                 <Post
+                  post_={post}
                   userId={post.user.userId}
                   username={post.user.username}
                   postId={post._id}

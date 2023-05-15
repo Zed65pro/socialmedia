@@ -13,26 +13,21 @@ import ProfilePictureUpload from "./ProfilePictureUpload.jsx";
 import LoadingCircle from "../atoms/LoadingCircle.jsx";
 import { BiDislike } from "react-icons/bi";
 import { AiOutlineLike } from "react-icons/ai";
+import { useSelector } from "react-redux";
+import { useLikeDislike } from "../../hooks/likesAndDislikes.js";
 
-const PostOverlay = ({ onClose, post_, profilePicture, postUser }) => {
+const PostOverlay = ({ onClose, post, profilePicture, postUser, userId }) => {
   const [comments, setComments] = useState(null);
-  const [isDisliked, setIsDisliked] = useState(false);
-  const [isLiked, setIsLiked] = useState(false);
-  const [post, setPost] = useState(post_);
+  const user = useSelector((state) => state.user);
 
-  console.log(isLiked, isDisliked);
+  const { likesCount, isLiked, dislikesCount, isDisliked, onLike, onDislike } =
+    useLikeDislike(post, userId);
 
   useEffect(() => {
     const fetchComments = async () => {
-      let response_isLiked = null;
-      let response_isDisliked = null;
       try {
         const response = await api.get(`/comments/${post._id}/comments`);
         setComments(response.data);
-        response_isLiked = await api.get(`/post/liked/${post._id}`);
-        response_isDisliked = await api.get(`/post/disliked/${post._id}`);
-        setIsLiked(response_isLiked?.data);
-        setIsDisliked(response_isDisliked?.data);
       } catch (err) {
         console.log(err);
       }
@@ -47,20 +42,6 @@ const PostOverlay = ({ onClose, post_, profilePicture, postUser }) => {
     resolver: yupResolver(commentSchema),
   });
 
-  const onLike = async () => {
-    const response = await api.patch(`/post/likes/${post._id}`);
-    setPost(response.data);
-    setIsLiked((state) => !state);
-    if (isDisliked) setIsDisliked((state) => !state);
-  };
-
-  const onDislike = async () => {
-    const response = await api.patch(`/post/dislikes/${post._id}`);
-    setPost(response.data);
-    setIsDisliked((state) => !state);
-    if (isLiked) setIsLiked((state) => !state);
-  };
-
   const handleCommentSubmit = async (data, event) => {
     event.preventDefault();
 
@@ -68,8 +49,8 @@ const PostOverlay = ({ onClose, post_, profilePicture, postUser }) => {
     try {
       const response = await api.post(`/comments/${post._id}/comments`, {
         body: event.target.comment.value,
-        username: postUser.username,
-        profilePicture: postUser.profilePicture,
+        username: user.username,
+        profilePicture: user.profilePicture,
       });
       const newComment = response.data.comment;
       setComments((prevComments) => [...prevComments, newComment]);
@@ -154,21 +135,11 @@ const PostOverlay = ({ onClose, post_, profilePicture, postUser }) => {
             }}
           >
             <Box sx={{ display: "flex", alignItems: "center" }}>
-              {profilePicture && (
-                <img
-                  src={profilePicture}
-                  alt="Profile"
-                  style={{
-                    width: "32px",
-                    height: "32px",
-                    borderRadius: "50%",
-                    marginRight: "0.5rem",
-                  }}
-                />
-              )}
+              <ProfilePictureUpload profile={postUser} size="45px" margin />
               <Link
                 to={`${constants.BASE_URL}/${constants.USER}/${post.user.userId}`}
                 style={{ textDecoration: "none", color: "black" }}
+                target="_blank"
               >
                 <Typography variant="subtitle1" sx={{ marginBottom: "0.5rem" }}>
                   {post.user.username}
@@ -179,7 +150,6 @@ const PostOverlay = ({ onClose, post_, profilePicture, postUser }) => {
             <Box
               sx={{
                 display: "flex",
-                justifyContent: "center",
               }}
             >
               <IconButton sx={{ color: "#fff" }} onClick={onLike}>
@@ -194,7 +164,7 @@ const PostOverlay = ({ onClose, post_, profilePicture, postUser }) => {
                     sx={{ fontSize: "1rem", mr: "5px" }}
                     color="green"
                   >
-                    {post.likesCount}
+                    {likesCount}
                   </Typography>
                   {!isLiked ? (
                     <AiOutlineLike size="25" style={{ color: "black" }} />
@@ -215,7 +185,7 @@ const PostOverlay = ({ onClose, post_, profilePicture, postUser }) => {
                     sx={{ fontSize: "1rem", mr: "5px" }}
                     color="secondary"
                   >
-                    {post.dislikesCount}
+                    {dislikesCount}
                   </Typography>
                   {!isDisliked ? (
                     <BiDislike size="25" style={{ color: "black" }} />
@@ -238,8 +208,8 @@ const PostOverlay = ({ onClose, post_, profilePicture, postUser }) => {
               flexDirection: "column",
               justifyContent: "space-between",
               padding: "1rem",
-              height: "250px",
-              maxHeight: "250px", // Set the desired height here
+              height: "200px",
+              maxHeight: "200px", // Set the desired height here
               overflow: "auto", // Enable scrolling
             }}
           >
@@ -263,14 +233,21 @@ const PostOverlay = ({ onClose, post_, profilePicture, postUser }) => {
                         alignItems: "center",
                       }}
                     >
-                      <IconButton>
-                        <ProfilePictureUpload
-                          profile={postUser}
-                          size="35"
-                          margin={2}
-                        />
-                      </IconButton>
-                      <Typography>{postUser.username}</Typography>
+                      <Link
+                        to={`${constants.BASE_URL}/${constants.USER}/${comment.user._id}`}
+                        style={{ textDecoration: "none", color: "black" }}
+                        target="_blank"
+                      >
+                        <IconButton>
+                          <ProfilePictureUpload
+                            profile={comment.user}
+                            size="35"
+                            margin={2}
+                          />
+                        </IconButton>
+
+                        <Typography>{comment.user.username}</Typography>
+                      </Link>
                     </Box>
                     <hr style={{ marginBottom: "1rem" }} />
                     <Typography variant="body2">{comment.body}</Typography>

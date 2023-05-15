@@ -76,6 +76,7 @@ function ProfilePictureUpload({
           <CgProfile
             size={size ? size : "200"}
             style={{
+              marginRight: margin ? "1rem" : 0,
               marginBottom: size ? 0 : "1rem",
               cursor: "pointer",
             }}

@@ -17,7 +17,6 @@ export const LoadingScreen = ({ label }) => {
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
         imageRendering: "auto",
-        backgroundColor: "black",
       }}
     >
       {label && (

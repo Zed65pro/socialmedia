@@ -35,7 +35,15 @@ const AddPost = () => {
     event.preventDefault();
     const { body, hashtags } = data;
     dispatch(
-      postCreate(body, hashtags, user._id, user.username, image, navigate)
+      postCreate(
+        body,
+        hashtags,
+        user._id,
+        user.username,
+        image,
+        user.profilePicture,
+        navigate
+      )
     );
   };
 
