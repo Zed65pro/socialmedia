@@ -16,12 +16,21 @@ import { AiOutlineLike } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { useLikeDislike } from "../../hooks/likesAndDislikes.js";
 
-const PostOverlay = ({ onClose, post, profilePicture, postUser, userId }) => {
+const PostOverlay = ({
+  onClose,
+  post,
+  profilePicture,
+  postUser,
+  userId,
+  likesCount,
+  isLiked,
+  dislikesCount,
+  isDisliked,
+  onLike,
+  onDislike,
+}) => {
   const [comments, setComments] = useState(null);
   const user = useSelector((state) => state.user);
-
-  const { likesCount, isLiked, dislikesCount, isDisliked, onLike, onDislike } =
-    useLikeDislike(post, userId);
 
   useEffect(() => {
     const fetchComments = async () => {
@@ -45,7 +54,6 @@ const PostOverlay = ({ onClose, post, profilePicture, postUser, userId }) => {
   const handleCommentSubmit = async (data, event) => {
     event.preventDefault();
 
-    // Add logic to submit the new comment
     try {
       const response = await api.post(`/comments/${post._id}/comments`, {
         body: event.target.comment.value,
@@ -54,6 +62,7 @@ const PostOverlay = ({ onClose, post, profilePicture, postUser, userId }) => {
       });
       const newComment = response.data.comment;
       setComments((prevComments) => [...prevComments, newComment]);
+      reset({ comment: "" });
     } catch (err) {
       console.log(err);
     }
@@ -101,29 +110,33 @@ const PostOverlay = ({ onClose, post, profilePicture, postUser, userId }) => {
           display: "flex",
           gap: "1rem",
           overflow: "hidden",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
         {/* Post picture */}
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "grey",
-          }}
-        >
-          <img
-            src={post.image ? post.image : defaultImage}
-            alt="Post"
-            style={{
-              width: "100%",
-              height: "100%",
-              maxWidth: "500px",
-              objectFit: "contain",
-              borderRadius: "8px",
+        {post.image && (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: "grey",
             }}
-          />
-        </Box>
+          >
+            <img
+              src={post.image ? post.image : defaultImage}
+              alt="Post"
+              style={{
+                width: "100%",
+                height: "100%",
+                maxWidth: "500px",
+                objectFit: "contain",
+                borderRadius: "8px",
+              }}
+            />
+          </Box>
+        )}
         <Box>
           {/* Post information */}
           <Box

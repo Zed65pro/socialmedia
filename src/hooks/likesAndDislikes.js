@@ -2,6 +2,7 @@ import { useState } from "react";
 import api from "../api/api";
 
 export const useLikeDislike = (post, userId) => {
+  console.log(post);
   const [isLiked, setIsLiked] = useState(post.likes.includes(userId));
   const [isDisliked, setIsDisliked] = useState(post.dislikes.includes(userId));
   const [likesCount, setLikesCount] = useState(post.likesCount);
@@ -17,6 +18,7 @@ export const useLikeDislike = (post, userId) => {
     }
 
     const response = await api.patch(`/post/likes/${post._id}`);
+    console.log(response.data);
   };
 
   const onDislike = async () => {
@@ -28,6 +30,7 @@ export const useLikeDislike = (post, userId) => {
       setIsLiked((state) => !state);
     }
     const response = await api.patch(`/post/dislikes/${post._id}`);
+    console.log(response.data);
   };
 
   return {

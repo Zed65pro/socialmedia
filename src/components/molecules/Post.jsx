@@ -32,7 +32,7 @@ const Post = memo(({ post_, username, postId, userId }) => {
   const [showOverlay, setShowOverlay] = useState(false);
 
   const { likesCount, isLiked, dislikesCount, isDisliked, onLike, onDislike } =
-    useLikeDislike(post_, userId);
+    useLikeDislike(post_, user._id);
 
   useEffect(() => {
     async function fetchData() {
@@ -84,6 +84,12 @@ const Post = memo(({ post_, username, postId, userId }) => {
           post={post}
           postUser={postUser}
           profilePicture={postUser.profilePicture}
+          likesCount={likesCount}
+          isLiked={isLiked}
+          dislikesCount={dislikesCount}
+          isDisliked={isDisliked}
+          onLike={onLike}
+          onDislike={onDislike}
         />
       )}
       {post && postUser && (
