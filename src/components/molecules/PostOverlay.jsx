@@ -99,11 +99,10 @@ const PostOverlay = ({
       {/* Overlay content */}
       <Box
         sx={{
-          padding: "1rem",
-          width: "90%",
+          width: "100%",
           height: "100%",
-          maxHeight: "70vh",
-          maxWidth: "800px",
+          maxHeight: "65vh",
+          maxWidth: "60vw",
           backgroundColor: "#fff",
           borderRadius: "8px",
           boxShadow: "0 2px 10px rgba(0, 0, 0, 0.2)",
@@ -122,6 +121,8 @@ const PostOverlay = ({
               justifyContent: "center",
               alignItems: "center",
               backgroundColor: "grey",
+              width: "100%",
+              height: "100%",
             }}
           >
             <img
@@ -129,9 +130,9 @@ const PostOverlay = ({
               alt="Post"
               style={{
                 width: "100%",
-                height: "100%",
+                height: "500px",
                 maxWidth: "500px",
-                objectFit: "contain",
+                objectFit: "cover",
                 borderRadius: "8px",
               }}
             />

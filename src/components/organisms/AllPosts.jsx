@@ -81,7 +81,7 @@ const AllPosts = ({ userId }) => {
                     {showMore && (
                       <IconButton
                         onClick={handleShowMore}
-                        sx={{ display: "block", margin: "0 auto" }}
+                        sx={{ display: "block" }}
                       >
                         <BiPlus />
                       </IconButton>

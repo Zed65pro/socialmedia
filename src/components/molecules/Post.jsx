@@ -1,4 +1,15 @@
-import { Box, Grid, IconButton, Paper, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Grid,
+  IconButton,
+  Paper,
+  Typography,
+} from "@mui/material";
 import React, { memo, useEffect, useState } from "react";
 import { CgProfile } from "react-icons/cg";
 import { BiDislike } from "react-icons/bi";
@@ -30,6 +41,7 @@ const Post = memo(({ post_, username, postId, userId }) => {
 
   const [post, setPost] = useState(post_);
   const [showOverlay, setShowOverlay] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   const { likesCount, isLiked, dislikesCount, isDisliked, onLike, onDislike } =
     useLikeDislike(post_, user._id);
@@ -56,9 +68,18 @@ const Post = memo(({ post_, username, postId, userId }) => {
     dispatch(logout(navigate));
   };
 
-  const onDeletePost = async () => {
+  const handleDeleteConfirmation = async () => {
     await api.delete(`/post/${postId}`);
     setPost(null);
+    setShowConfirmation(false);
+  };
+
+  const handleCancelDelete = () => {
+    setShowConfirmation(false);
+  };
+
+  const onDeletePost = async () => {
+    setShowConfirmation(true);
   };
 
   if (loading)
@@ -93,7 +114,17 @@ const Post = memo(({ post_, username, postId, userId }) => {
         />
       )}
       {post && postUser && (
-        <Grid item xs={12}>
+        <Grid
+          item
+          xs={12}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            padding: "0!important",
+            margin: "2rem 0",
+          }}
+        >
           <Paper
             elevation={5}
             sx={{
@@ -102,6 +133,7 @@ const Post = memo(({ post_, username, postId, userId }) => {
               background:
                 "linear-gradient(90deg, rgba(40, 120, 150, 0.91) 15%, rgba(0,0,0,1) 85%)",
               padding: "2rem",
+              width: { sm: "70%", md: "60%", lg: "100%" },
             }}
           >
             <Box sx={{ display: "flex", justifyContent: "center" }}>
@@ -114,18 +146,6 @@ const Post = memo(({ post_, username, postId, userId }) => {
                 }}
               >
                 <ProfilePictureUpload profile={postUser} size={45} margin={2} />
-                {/* <IconButton
-                  sx={{
-                    color: "#fff",
-                    trasition: "all 0.3 ease-in",
-                    "&:hover": {
-                      backgroundColor: "#777",
-                    },
-                    mr: "5px",
-                  }}
-                >
-                  <CgProfile size="35" />
-                </IconButton> */}
                 <Typography
                   variant="h6"
                   sx={{
@@ -288,6 +308,21 @@ const Post = memo(({ post_, username, postId, userId }) => {
           </Paper>
         </Grid>
       )}
+      {/* Confirmation Dialog */}
+      <Dialog open={showConfirmation} onClose={handleCancelDelete}>
+        <DialogTitle>Confirm Deletion</DialogTitle>
+        <DialogContent>
+          <Typography>Are you sure you want to delete this post?</Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCancelDelete} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleDeleteConfirmation} color="primary">
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 });

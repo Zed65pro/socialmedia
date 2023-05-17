@@ -38,8 +38,14 @@ const Home = () => {
       <Navbar />
       {loading && <LoadingCircle />}
       <SearchBar />
-      <hr style={{ margin: "3rem 0" }} />
-      <Box sx={{ display: "flex", justifyContent: "space-around" }}>
+      <hr style={{ margin: "2rem 0" }} />
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-around",
+          // width: "50%",
+        }}
+      >
         <LeftPanel />
         <AllPosts />
         <RightPanel />
