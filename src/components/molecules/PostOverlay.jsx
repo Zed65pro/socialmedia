@@ -101,8 +101,8 @@ const PostOverlay = ({
         sx={{
           width: "100%",
           height: "100%",
-          maxHeight: "65vh",
-          maxWidth: "60vw",
+          maxHeight: { xs: "90vh", sm: "90vh", md: "75vh", lg: "65vh" },
+          maxWidth: { xs: "90vw", sm: "85vw", md: "65vw", lg: "60vw" },
           backgroundColor: "#fff",
           borderRadius: "8px",
           boxShadow: "0 2px 10px rgba(0, 0, 0, 0.2)",
@@ -117,7 +117,7 @@ const PostOverlay = ({
         {post.image && (
           <Box
             sx={{
-              display: "flex",
+              display: { xs: "none", sm: "flex", lg: "flex" },
               justifyContent: "center",
               alignItems: "center",
               backgroundColor: "grey",

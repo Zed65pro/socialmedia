@@ -14,8 +14,6 @@ const Profile = () => {
   const user = useSelector((state) => state.user);
   const { id } = useParams();
 
-  const loading = useSelector((state) => state.loader);
-  const error = useSelector((state) => state.error);
   const [profile, setProfile] = useState(null);
 
   useEffect(() => {
@@ -35,9 +33,7 @@ const Profile = () => {
   if (!user || !profile) return <LoadingScreen />;
   return (
     <>
-      {loading && <p>Loading...</p>}
       <Navbar />
-
       <Box>
         <ProfileUser profile={profile} />
         <hr />
@@ -51,14 +47,6 @@ const Profile = () => {
           <AllPosts userId={profile._id} />
         </Box>
       </Box>
-      {error && (
-        <Typography
-          sx={{ textAlign: "center", color: "red" }}
-          position={"center"}
-        >
-          {error.message}
-        </Typography>
-      )}
       <Footer />
     </>
   );

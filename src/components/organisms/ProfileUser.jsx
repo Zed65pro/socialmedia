@@ -47,35 +47,56 @@ const ProfileUser = ({ profile }) => {
     <Box
       sx={{
         display: "flex",
-        flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
         margin: "5rem 0",
       }}
     >
-      <Paper elevation={3} sx={{ padding: "2rem 5rem", display: "flex" }}>
-        <ProfilePictureUpload profile={profile} />
-        <div style={{ borderRight: "1px solid #ccc", margin: "0 1rem" }}></div>
-        <ProfileDetails profile={profile} />
-      </Paper>
-      {profile._id === user._id ? (
-        <Button
-          variant="contained"
-          color="success"
-          sx={{ width: "640px" }}
-          onClick={handleEdit}
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "50%",
+        }}
+      >
+        <Paper
+          elevation={3}
+          sx={{
+            padding: "2rem 2rem",
+            display: "flex",
+            flexDirection: {
+              xs: "column",
+              lg: "row",
+            },
+          }}
         >
-          Edit profile
-        </Button>
-      ) : !isFriend() ? (
-        <IconButton onClick={onAddFriend}>
-          <AiOutlineUserAdd style={{ color: "green" }} />
-        </IconButton>
-      ) : (
-        <IconButton onClick={onRemoveFriend}>
-          <HiOutlineUserRemove style={{ color: "red" }} />
-        </IconButton>
-      )}
+          <ProfilePictureUpload profile={profile} />
+          <div
+            style={{ borderRight: "1px solid #ccc", margin: "0 1rem" }}
+          ></div>
+          <ProfileDetails profile={profile} />
+        </Paper>
+        {profile._id === user._id ? (
+          <Button
+            variant="contained"
+            color="success"
+            sx={{ width: { xs: "90vw", lg: "30vw" } }}
+            onClick={handleEdit}
+          >
+            Edit profile
+          </Button>
+        ) : !isFriend() ? (
+          <IconButton onClick={onAddFriend}>
+            <AiOutlineUserAdd style={{ color: "green" }} />
+          </IconButton>
+        ) : (
+          <IconButton onClick={onRemoveFriend}>
+            <HiOutlineUserRemove style={{ color: "red" }} />
+          </IconButton>
+        )}
+      </Box>
     </Box>
   );
 };

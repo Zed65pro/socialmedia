@@ -10,12 +10,10 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
-import React, { memo, useEffect, useState } from "react";
-import { CgProfile } from "react-icons/cg";
+import React, { memo, useState } from "react";
 import { BiDislike } from "react-icons/bi";
-import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../storage/authReducers.js";
-import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 // import { makeStyles } from "@mui/styles";
 import DividerAtom from "../atoms/DividerAtom.jsx";
 import { FiLogOut } from "react-icons/fi";
@@ -24,20 +22,12 @@ import ProfilePictureUpload from "./ProfilePictureUpload.jsx";
 import { AiOutlineLike } from "react-icons/ai";
 import { constants } from "../../constants.js";
 import api from "../../api/api.js";
-import { fetchPostById } from "../../utils/fetchPost";
-import { LoadingScreen } from "../atoms/LoadingScreen.jsx";
 import LoadingCircle from "../atoms/LoadingCircle.jsx";
-import background from "../../assets/AnkaraUniv.png";
-import { fetchUser } from "../../utils/fetchUser.js";
 import PostOverlay from "./PostOverlay.jsx";
 import { useLikeDislike } from "../../hooks/likesAndDislikes.js";
 
-const Post = memo(({ post_, username, postId, userId }) => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+const Post = memo(({ post_ }) => {
   const user = useSelector((state) => state.user);
-  const [postUser, setPostUser] = useState(null);
-  const [loading, setLoading] = useState(true);
 
   const [post, setPost] = useState(post_);
   const [showOverlay, setShowOverlay] = useState(false);
@@ -46,30 +36,12 @@ const Post = memo(({ post_, username, postId, userId }) => {
   const { likesCount, isLiked, dislikesCount, isDisliked, onLike, onDislike } =
     useLikeDislike(post_, user._id);
 
-  useEffect(() => {
-    async function fetchData() {
-      let postUser_ = null;
-
-      if (postId) {
-        postUser_ = await api.get(`/users/${userId}`);
-      }
-
-      setLoading(false);
-      setPostUser(postUser_.data);
-    }
-    fetchData();
-  }, []);
-
   const toggleOverlay = () => {
     setShowOverlay((prev) => !prev);
   };
 
-  const onLogout = () => {
-    dispatch(logout(navigate));
-  };
-
   const handleDeleteConfirmation = async () => {
-    await api.delete(`/post/${postId}`);
+    await api.delete(`/post/${post._id}`);
     setPost(null);
     setShowConfirmation(false);
   };
@@ -82,20 +54,20 @@ const Post = memo(({ post_, username, postId, userId }) => {
     setShowConfirmation(true);
   };
 
-  if (loading)
-    return (
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          width: "100%",
-          height: "30vh",
-        }}
-      >
-        <LoadingCircle />;
-      </Box>
-    );
+  // if (loading)
+  //   return (
+  //     <Box
+  //       sx={{
+  //         display: "flex",
+  //         justifyContent: "center",
+  //         alignItems: "center",
+  //         width: "100%",
+  //         height: "30vh",
+  //       }}
+  //     >
+  //       <LoadingCircle />;
+  //     </Box>
+  //   );
 
   return (
     <>
@@ -103,8 +75,8 @@ const Post = memo(({ post_, username, postId, userId }) => {
         <PostOverlay
           onClose={toggleOverlay}
           post={post}
-          postUser={postUser}
-          profilePicture={postUser.profilePicture}
+          postUser={post.user}
+          profilePicture={post.user.profilePicture}
           likesCount={likesCount}
           isLiked={isLiked}
           dislikesCount={dislikesCount}
@@ -113,7 +85,7 @@ const Post = memo(({ post_, username, postId, userId }) => {
           onDislike={onDislike}
         />
       )}
-      {post && postUser && (
+      {post && (
         <Grid
           item
           xs={12}
@@ -140,12 +112,15 @@ const Post = memo(({ post_, username, postId, userId }) => {
               <Box
                 sx={{
                   display: "flex",
-                  //   justifyContent: "center",
                   alignItems: "center",
                   width: "100%",
                 }}
               >
-                <ProfilePictureUpload profile={postUser} size={45} margin={2} />
+                <ProfilePictureUpload
+                  profile={post.user}
+                  size={45}
+                  margin={2}
+                />
                 <Typography
                   variant="h6"
                   sx={{
@@ -153,7 +128,7 @@ const Post = memo(({ post_, username, postId, userId }) => {
                   }}
                 >
                   <Link
-                    to={`${constants.BASE_URL}/${constants.USER}/${userId}`}
+                    to={`${constants.BASE_URL}/${constants.USER}/${user._id}`}
                     style={{
                       textDecoration: "none",
                       color: "white",
@@ -162,7 +137,7 @@ const Post = memo(({ post_, username, postId, userId }) => {
                       },
                     }}
                   >
-                    {username}
+                    {post.user.username}
                   </Link>
                 </Typography>
               </Box>

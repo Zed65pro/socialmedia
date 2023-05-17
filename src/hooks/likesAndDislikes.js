@@ -2,7 +2,6 @@ import { useState } from "react";
 import api from "../api/api";
 
 export const useLikeDislike = (post, userId) => {
-  console.log(post);
   const [isLiked, setIsLiked] = useState(post.likes.includes(userId));
   const [isDisliked, setIsDisliked] = useState(post.dislikes.includes(userId));
   const [likesCount, setLikesCount] = useState(post.likesCount);

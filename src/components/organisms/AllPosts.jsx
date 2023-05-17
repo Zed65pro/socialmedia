@@ -1,9 +1,7 @@
-import { Box, Grid, IconButton, Typography } from "@mui/material";
+import { Box, Grid, IconButton } from "@mui/material";
 import React, { useCallback, useEffect, useState } from "react";
-import api from "../../api/api";
 import { LoadingScreen } from "../atoms/LoadingScreen";
 import Post from "../molecules/Post";
-import AddIcon from "@mui/icons-material/Add";
 import { BiPlus } from "react-icons/bi";
 import { fetchPost } from "../../utils/fetchPost";
 
@@ -31,7 +29,7 @@ const AllPosts = ({ userId }) => {
     };
 
     fetchPosts();
-  }, [userId]);
+  }, []);
 
   const handleShowMore = () => {
     const nextVisiblePosts = posts.slice(0, visiblePosts.length + 1);
@@ -62,20 +60,15 @@ const AllPosts = ({ userId }) => {
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
-            width: { md: "80vw", lg: "40vw" },
+            width: { sm: "70vw", md: "70vw", lg: "40vw" },
             height: "100%",
             margin: "2rem 0",
           }}
         >
-          <Grid container spacing={6}>
+          <Grid container>
             {visiblePosts.map((post, index) => (
               <React.Fragment key={post._id}>
-                <Post
-                  post_={post}
-                  userId={post.user.userId}
-                  username={post.user.username}
-                  postId={post._id}
-                />
+                <Post post_={post} userId={post.user.userId} />
                 {index === visiblePosts.length - 1 && (
                   <Grid item xs={12}>
                     {showMore && (

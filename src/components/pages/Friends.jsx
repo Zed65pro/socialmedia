@@ -50,7 +50,6 @@ const Friends = () => {
       <Navbar />
       <Grid
         container
-        spacing={2}
         sx={{
           height: "100%",
           width: "100%",
@@ -60,39 +59,33 @@ const Friends = () => {
         }}
       >
         <Grid item>
-          <Paper elevation={4}>
-            <Box
-              component="form"
-              onSubmit={handleSubmit(onSubmit)}
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                padding: "5rem",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Typography variant="h4">Add a friend</Typography>
-              <FormInputText
-                control={control}
-                name="email"
-                label="Enter a friend's email address"
-                autoComplete="email"
-                autoFocus
-                sx={{ mb: "1rem", mt: "1rem" }}
-              />
-              <Button type="submit" fullWidth variant="contained">
-                Add friend
-              </Button>
-            </Box>
-          </Paper>
-          {error && (
-            <Box sx={{ textAlign: "center" }}>
-              <Typography variant="h6" color="secondary">
-                {error}
-              </Typography>
-            </Box>
-          )}
+          <Box
+            component="form"
+            onSubmit={handleSubmit(onSubmit)}
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              padding: "5rem",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Typography variant="h3" sx={{ textAlign: "center" }}>
+              {" "}
+              ADD YOUR FRIEND
+            </Typography>
+            <FormInputText
+              control={control}
+              name="email"
+              label="Enter a friend's email address"
+              autoComplete="email"
+              autoFocus
+              sx={{ mb: "1rem", mt: "1rem" }}
+            />
+            <Button type="submit" fullWidth variant="contained">
+              Add friend
+            </Button>
+          </Box>
         </Grid>
       </Grid>
       <hr style={{ marginTop: "2rem" }} />
