@@ -19,7 +19,7 @@ import ChatWindow from "../molecules/ChatWindow";
 import { io } from "socket.io-client";
 
 // const socket = io.connect("http://localhost:3000");
-const socket = io.connect("http://localhost:10000");
+const socket = io.connect("https://social-media-app-server-o938.onrender.com");
 
 const Home = () => {
   const navigate = useNavigate();
