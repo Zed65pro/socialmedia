@@ -128,7 +128,7 @@ const Post = memo(({ post_ }) => {
                   }}
                 >
                   <Link
-                    to={`${constants.BASE_URL}/${constants.USER}/${user._id}`}
+                    to={`${constants.BASE_URL}/${constants.USER}/${post.user.userId}`}
                     style={{
                       textDecoration: "none",
                       color: "white",
