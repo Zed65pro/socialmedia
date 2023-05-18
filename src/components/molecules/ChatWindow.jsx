@@ -21,7 +21,7 @@ const ChatWindow = ({ setShowChatWindow, socket }) => {
   const [message, setMessage] = useState("");
 
   const handleFriendClick = (friend) => {
-    socket.emit("join_room", friend.friendName + "-" + user.username);
+    socket.emit("join_room", "-12");
     setSelectedFriend(friend);
   };
 
