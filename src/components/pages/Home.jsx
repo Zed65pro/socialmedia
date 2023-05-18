@@ -18,7 +18,8 @@ import { fetchUser } from "../../utils/fetchUser";
 import ChatWindow from "../molecules/ChatWindow";
 import { io } from "socket.io-client";
 
-const socket = io.connect("http://localhost:3000");
+// const socket = io.connect("http://localhost:3000");
+const socket = io.connect("http://localhost:10000");
 
 const Home = () => {
   const navigate = useNavigate();
