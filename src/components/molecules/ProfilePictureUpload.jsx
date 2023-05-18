@@ -9,6 +9,7 @@ function ProfilePictureUpload({
   size,
   isPost,
   margin,
+  noMargin,
 }) {
   const handleFileSelect = (event) => {
     const file = event.target.files[0];
@@ -41,7 +42,7 @@ function ProfilePictureUpload({
         flexDirection: "column",
         // justifyContent: "center",
         // alignItems: "center",
-        margin: "1rem 0",
+        margin: !noMargin ? "1rem" : "0",
       }}
     >
       <label htmlFor="profile-picture-input">
@@ -51,7 +52,7 @@ function ProfilePictureUpload({
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              marginRight: margin ? margin : 0,
+              marginRight: margin ? `${margin}rem` : 0,
             }}
           >
             <img

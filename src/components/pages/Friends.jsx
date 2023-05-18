@@ -20,7 +20,6 @@ const Friends = () => {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user);
-  const error = useSelector((state) => state.error);
   useEffect(() => {
     !user && fetchUser(navigate);
   }, []);

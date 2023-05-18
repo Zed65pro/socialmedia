@@ -166,48 +166,52 @@ const PostOverlay = ({
                 display: "flex",
               }}
             >
-              <IconButton sx={{ color: "#fff" }} onClick={onLike}>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Typography
-                    sx={{ fontSize: "1rem", mr: "5px" }}
-                    color="green"
-                  >
-                    {likesCount}
-                  </Typography>
-                  {!isLiked ? (
-                    <AiOutlineLike size="25" style={{ color: "black" }} />
-                  ) : (
-                    <AiOutlineLike size="25" style={{ color: "green" }} />
-                  )}
-                </Box>
-              </IconButton>
-              <IconButton sx={{ color: "#fff" }} onClick={onDislike}>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Typography
-                    sx={{ fontSize: "1rem", mr: "5px" }}
-                    color="secondary"
-                  >
-                    {dislikesCount}
-                  </Typography>
-                  {!isDisliked ? (
-                    <BiDislike size="25" style={{ color: "black" }} />
-                  ) : (
-                    <BiDislike size="25" style={{ color: "red" }} />
-                  )}
-                </Box>
-              </IconButton>
+              {likesCount && (
+                <>
+                  <IconButton sx={{ color: "#fff" }} onClick={onLike}>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Typography
+                        sx={{ fontSize: "1rem", mr: "5px" }}
+                        color="green"
+                      >
+                        {likesCount}
+                      </Typography>
+                      {!isLiked ? (
+                        <AiOutlineLike size="25" style={{ color: "black" }} />
+                      ) : (
+                        <AiOutlineLike size="25" style={{ color: "green" }} />
+                      )}
+                    </Box>
+                  </IconButton>
+                  <IconButton sx={{ color: "#fff" }} onClick={onDislike}>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Typography
+                        sx={{ fontSize: "1rem", mr: "5px" }}
+                        color="secondary"
+                      >
+                        {dislikesCount}
+                      </Typography>
+                      {!isDisliked ? (
+                        <BiDislike size="25" style={{ color: "black" }} />
+                      ) : (
+                        <BiDislike size="25" style={{ color: "red" }} />
+                      )}
+                    </Box>
+                  </IconButton>
+                </>
+              )}
             </Box>
 
             <Typography variant="subtitle2" sx={{ marginTop: "1rem" }}>

@@ -2,15 +2,11 @@ import { Box, Button, Paper, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { fetchUser } from "../../utils/fetchUser";
 import { constants } from "../../constants";
 
 const FriendList = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
-  useEffect(() => {
-    !user && fetchUser(navigate);
-  }, []);
 
   const onVisit = (friendId) => {
     navigate(`${constants.BASE_URL}/${constants.USER}/${friendId}`);

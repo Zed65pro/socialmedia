@@ -10,12 +10,19 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import api from "../../api/api";
 import { constants } from "../../constants";
+import PostOverlay from "../molecules/PostOverlay";
+import ProfilePictureUpload from "../molecules/ProfilePictureUpload";
 
 const SearchBar = () => {
   const [search, setSearch] = useState("");
   const [posts, setPosts] = useState([]);
   const [users, setUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+
+  const [showOverlay, setShowOverlay] = useState(false);
+  const toggleOverlay = () => {
+    setShowOverlay((prev) => !prev);
+  };
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -80,6 +87,7 @@ const SearchBar = () => {
             </InputAdornment>
           ),
         }}
+        sx={{ width: { xs: "90%", sm: "60%", md: "50%", lg: "20%" } }}
       />
       <Box
         sx={{
@@ -92,10 +100,13 @@ const SearchBar = () => {
               sx={{
                 width: "100%",
                 padding: "15px",
-                backgroundColor: "grey",
+                border: "black 1px solid",
+                color: "white",
+                background:
+                  "linear-gradient(90deg, rgba(20, 163, 214, 0.91) 15%, rgba(0,0,0,1) 85%)",
               }}
             >
-              <Typography>USERS</Typography>
+              <Typography>Users</Typography>
             </Box>
             <Box sx={{ textAlign: "center" }}>
               {users.map((user) => (
@@ -109,8 +120,21 @@ const SearchBar = () => {
                     )
                   }
                   key={user._id}
-                  sx={{ borderBottom: "solid black 1px", padding: "15px" }}
+                  sx={{
+                    border: "solid black 1px",
+                    borderTop: "none",
+                    padding: "15px",
+                    display: "flex",
+                    justifyContent: "start",
+                    alignItems: "center",
+                  }}
                 >
+                  <ProfilePictureUpload
+                    profile={user}
+                    size="45"
+                    noMargin
+                    margin="1"
+                  />
                   {user.username}
                 </Button>
               ))}
@@ -123,16 +147,43 @@ const SearchBar = () => {
               sx={{
                 width: "100%",
                 padding: "15px",
-                backgroundColor: "grey",
+                border: "solid black 1px",
+                borderTop: "none",
+                color: "white",
+                background:
+                  "linear-gradient(90deg, rgba(20, 163, 214, 0.91) 15%, rgba(0,0,0,1) 85%)",
               }}
             >
-              <Typography>POSTS</Typography>
+              <Typography>{`Posts starting with tag "${searchTerm}"`}</Typography>
             </Box>
             <Box sx={{ textAlign: "center" }}>
               {posts.map((post) => (
-                <Box sx={{ borderBottom: "solid black 1px", padding: "15px" }}>
-                  <Typography key={post._id}>{post.body}</Typography>
-                </Box>
+                <>
+                  {showOverlay && (
+                    <PostOverlay
+                      onClose={toggleOverlay}
+                      post={post}
+                      postUser={post.user}
+                      profilePicture={post.user.profilePicture}
+                    />
+                  )}
+                  <Button
+                    onClick={toggleOverlay}
+                    fullWidth
+                    variant="filled"
+                    color="primary"
+                    sx={{
+                      border: "solid black 1px",
+                      borderTop: "none",
+                      padding: "15px",
+                      display: "flex",
+                      justifyContent: "start",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography key={post._id}>{post.body}</Typography>
+                  </Button>
+                </>
               ))}
             </Box>
           </Box>

@@ -21,8 +21,6 @@ const Signin = () => {
   const error = useSelector((state) => state.error);
   const user = useSelector((state) => state.user);
 
-  const [apiError, setApiError] = useState(false);
-
   useEffect(() => {
     getToken() && user && navigate(`${constants.BASE_URL}/${constants.HOME}`);
   }, []);
@@ -42,11 +40,8 @@ const Signin = () => {
     const email = event.target.email.value;
     const password = event.target.password.value;
 
-    dispatch(signin(email, password, navigate, setApiError));
+    dispatch(signin(email, password, navigate));
   };
-
-  if (apiError)
-    return <LoadingScreen label="Failed to connect to database motherfucker" />;
 
   return (
     <Form

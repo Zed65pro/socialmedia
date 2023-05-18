@@ -70,7 +70,7 @@ export const userFailure = (error) => ({
 });
 
 // Reducers
-export const signup = (username, email, password, navigate, setApiError) => {
+export const signup = (username, email, password, navigate) => {
   return async (dispatch) => {
     dispatch(signupRequest());
 
@@ -88,12 +88,11 @@ export const signup = (username, email, password, navigate, setApiError) => {
     } catch (error) {
       const errorMessage = error?.response?.data || "An unknown error occurred";
       dispatch(signupFailure(errorMessage));
-      setApiError(true);
     }
   };
 };
 
-export const signin = (email, password, navigate, setApiError) => {
+export const signin = (email, password, navigate) => {
   return async (dispatch) => {
     dispatch(loginRequest());
 
@@ -110,7 +109,6 @@ export const signin = (email, password, navigate, setApiError) => {
     } catch (error) {
       // Dispatch a failure action with the error object
       const errorMessage = error?.response?.data || "An unknown error occurred";
-      setApiError(true);
       dispatch(loginFailure(errorMessage));
     }
   };

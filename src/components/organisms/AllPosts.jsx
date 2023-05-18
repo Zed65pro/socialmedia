@@ -62,7 +62,7 @@ const AllPosts = ({ userId }) => {
             alignItems: "center",
             width: { sm: "70vw", md: "70vw", lg: "40vw" },
             height: "100%",
-            margin: "2rem 0",
+            margin: "0",
           }}
         >
           <Grid container>

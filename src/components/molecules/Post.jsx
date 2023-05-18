@@ -94,7 +94,7 @@ const Post = memo(({ post_ }) => {
             justifyContent: "center",
             alignItems: "center",
             padding: "0!important",
-            margin: "2rem 0",
+            marginBottom: "2rem",
           }}
         >
           <Paper
@@ -168,10 +168,7 @@ const Post = memo(({ post_ }) => {
                 p: "1rem",
               }}
             >
-              <Typography
-                variant="h6"
-                sx={{ color: "white", fontSize: "1rem" }}
-              >
+              <Typography variant="h6" sx={{ color: "white" }}>
                 {post.body}
               </Typography>
             </Box>
@@ -181,24 +178,33 @@ const Post = memo(({ post_ }) => {
             />
 
             {post.image && (
-              <>
+              <Box
+                sx={{
+                  width: "100%",
+                  height: "500px",
+                  backgroundColor: "grey",
+                }}
+              >
                 <Box
                   component="img"
                   sx={{
                     height: "100%",
                     width: "100%",
-                    // maxHeight: { xs: 233, md: 167 },
-                    // maxWidth: { xs: 350, md: 250 },
+                    textAlign: "center",
+                    objectFit: "contain",
+                    cursor: "pointer",
+                    imageRendering: [
+                      "-webkit-optimize-contrast",
+                      "crisp-edges",
+                      "pixelated",
+                    ],
+                    // maxHeight: { xs: 233, md: "300px" },
+                    // maxWidth: { xs: 350, md: "300px" },
                   }}
                   alt="The house from the offer."
                   src={post.image}
                 />
-
-                <DividerAtom
-                  light={true}
-                  sx={{ backgroundColor: "#fff", opacity: "0.4" }}
-                />
-              </>
+              </Box>
             )}
 
             <Box
