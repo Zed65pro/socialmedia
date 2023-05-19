@@ -6,41 +6,7 @@ import { createStyles, makeStyles } from "@material-ui/styles";
 import { useSelector } from "react-redux";
 import api from "../../api/api.js";
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    paper: {
-      width: "100%",
-      height: "100%",
-      display: "flex",
-      alignItems: "center",
-      flexDirection: "column",
-      position: "relative",
-      padding: "1rem",
-    },
-    paper2: {
-      padding: "10px",
-      display: "flex",
-      alignItems: "center",
-      flexDirection: "column",
-      position: "relative",
-    },
-    container: {
-      width: "100%",
-      height: "100%",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      padding: "1rem",
-    },
-    messagesBody: {
-      width: "calc( 100% - 20px )",
-      margin: 10,
-      overflowY: "scroll",
-      height: "calc( 100% - 80px )",
-    },
-  })
-);
-export default function ChatUi({ selectedFriend, socket }) {
+const ChatUi = ({ selectedFriend, socket }) => {
   const classes = useStyles();
   const user = useSelector((state) => state.user);
   const [message, setMessage] = useState("");
@@ -158,4 +124,41 @@ export default function ChatUi({ selectedFriend, socket }) {
       </Box>
     </div>
   );
-}
+};
+
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    paper: {
+      width: "100%",
+      height: "100%",
+      display: "flex",
+      alignItems: "center",
+      flexDirection: "column",
+      position: "relative",
+      padding: "1rem",
+    },
+    paper2: {
+      padding: "10px",
+      display: "flex",
+      alignItems: "center",
+      flexDirection: "column",
+      position: "relative",
+    },
+    container: {
+      width: "100%",
+      height: "100%",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      padding: "1rem",
+    },
+    messagesBody: {
+      width: "calc( 100% - 20px )",
+      margin: 10,
+      overflowY: "scroll",
+      height: "calc( 100% - 80px )",
+    },
+  })
+);
+
+export default ChatUi;

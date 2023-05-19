@@ -37,12 +37,12 @@ const ChatWindow = ({ setShowChatWindow, socket }) => {
       <Box
         sx={{
           position: "fixed",
-          bottom: { sm: "0", lg: "1rem" },
-          right: { sm: "0", lg: "1rem" },
+          bottom: { xs: "0", lg: "1rem" },
+          right: { xs: "0", lg: "1rem" },
           zIndex: 9999,
           background: "#fff",
-          width: { sm: "100%", lg: "800px" },
-          height: { sm: "70%", lg: "600px" },
+          width: { xs: "100%", lg: "800px" },
+          height: { xs: "70%", lg: "600px" },
           borderRadius: "8px",
           boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
           padding: "6px",
@@ -71,6 +71,7 @@ const ChatWindow = ({ setShowChatWindow, socket }) => {
               borderRight: "1px solid #ccc",
               padding: "0 1rem",
               overflow: "auto",
+              display: selectedFriend ? { xs: "none", sm: "block" } : "block",
             }}
           >
             <Typography variant="h6">Friends</Typography>
