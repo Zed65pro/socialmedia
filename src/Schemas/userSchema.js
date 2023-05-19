@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-const usernameRegex = /^[a-zA-Z0-9_-]{3,16}$/;
+const usernameRegex = /^[a-zA-Z0-9_-]{3,10}$/;
 
 export const signinSchema = yup.object().shape({
   email: yup
@@ -19,7 +19,7 @@ export const signupSchema = yup.object().shape({
     .string("Username must be a string")
     .matches(
       usernameRegex,
-      "Username must be 3-16 characters long and can only contain alphanumeric characters, underscores and hyphens"
+      "Username must be 3-10 characters long and can only contain alphanumeric characters, underscores and hyphens"
     )
     .required("This field can't be empty"),
   email: yup

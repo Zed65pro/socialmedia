@@ -12,16 +12,18 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { io } from "socket.io-client";
+import ChatUi from "../Chat/ChatUi";
 
 const ChatWindow = ({ setShowChatWindow, socket }) => {
   const user = useSelector((state) => state.user);
   const [selectedFriend, setSelectedFriend] = useState(null);
-  const [messages, setMessages] = useState([]);
-
-  const [message, setMessage] = useState("");
 
   const handleFriendClick = (friend) => {
-    socket.emit("join_room", "-12");
+    // Special room key
+    const ids = [user._id, friend.friendId].sort();
+    const roomKeyById = ids.join("_");
+
+    socket.emit("join_room", roomKeyById);
     setSelectedFriend(friend);
   };
 
@@ -30,42 +32,20 @@ const ChatWindow = ({ setShowChatWindow, socket }) => {
     setShowChatWindow(false);
   };
 
-  useEffect(() => {
-    socket.on("chat message", (message) => {
-      //   console.log(message);
-      setMessages((prevMessages) => [...prevMessages, message]);
-    });
-
-    // Clean up the socket connection on component unmount
-    //   return () => {
-    //     socket.disconnect();
-    //   };
-  }, [socket]);
-
-  const sendMessage = () => {
-    const chatMessage = {
-      sender: user.username,
-      receiver: selectedFriend.friendName,
-      message,
-    };
-    // Emit 'chat message' event to the server
-    socket.emit("chat message", chatMessage);
-  };
-
   return (
     <>
       <Box
         sx={{
           position: "fixed",
-          bottom: "2rem",
-          right: "2rem",
+          bottom: { sm: "0", lg: "1rem" },
+          right: { sm: "0", lg: "1rem" },
           zIndex: 9999,
           background: "#fff",
-          width: "700px",
-          height: "500px",
+          width: { sm: "100%", lg: "800px" },
+          height: { sm: "70%", lg: "600px" },
           borderRadius: "8px",
           boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
-          padding: "1rem",
+          padding: "6px",
         }}
       >
         <IconButton
@@ -122,51 +102,21 @@ const ChatWindow = ({ setShowChatWindow, socket }) => {
           <Box
             sx={{
               flex: 1,
-              padding: "0 1rem",
+              // padding: "0 1rem",
               display: "flex",
               flexDirection: "column",
+              margin: "0 1rem",
             }}
           >
             {selectedFriend ? (
               <>
-                <Typography variant="h6">
-                  Chat with {selectedFriend.friendName}
-                </Typography>
-                {/* Display chat conversation here */}
-                <Box
-                  sx={{
-                    flex: 1,
-                    backgroundColor: "#f9f9f9",
-                    borderRadius: "4px",
-                    marginTop: "1rem",
-                    padding: "1rem",
-                    overflow: "auto",
-                  }}
-                >
-                  <div>
-                    {/* Render the messages */}
-                    {messages.map((message, index) => (
-                      <div key={index}>
-                        <span>Sender:{message.sender}</span>
-                        {/* <span>{message.message}</span> */}
-                        <br />
-                        <span>{message.message}</span>
-                      </div>
-                    ))}
-
-                    {/* Input field and send button */}
-                    <input
-                      type="text"
-                      placeholder="Chat here.."
-                      onChange={(event) => setMessage(event.target.value)}
-                      value={message}
-                    />
-                    <button onClick={sendMessage}>Send</button>
-                  </div>
-                </Box>
+                <ChatUi selectedFriend={selectedFriend} socket={socket} />
               </>
             ) : (
-              <Typography variant="body1">
+              <Typography
+                variant="body1"
+                sx={{ textAlign: "center", marginTop: "40%" }}
+              >
                 Select a friend to start chatting
               </Typography>
             )}

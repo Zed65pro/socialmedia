@@ -40,7 +40,6 @@ const LeftPanel = () => {
     <Stack
       sx={{
         width: "20%",
-        height: "100vh",
         padding: "3rem",
         display: { xs: "none", sm: "none", md: "none", lg: "block" },
       }}
@@ -48,11 +47,22 @@ const LeftPanel = () => {
       component={Paper}
     >
       {/* {showOverlay && <AddPostOverlay onClose={toggleOverlay} />} */}
-      <Box sx={{ display: "flex", alignItems: "center" }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          marginBottom: "10px",
+        }}
+      >
         <ProfilePictureUpload size={85} profile={user} />
         <Typography
           variant="h5"
-          sx={{ marginLeft: "1rem", textTransform: "capitalize" }}
+          sx={{
+            marginLeft: "1rem",
+            textTransform: "capitalize",
+            display: { sx: "none", lg: "block" },
+          }}
         >
           {user.username}
         </Typography>

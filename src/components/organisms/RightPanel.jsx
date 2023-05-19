@@ -18,8 +18,7 @@ const RightPanel = () => {
   return (
     <Stack
       sx={{
-        width: "20%",
-        height: "100vh",
+        width: "22%",
         padding: "3rem",
         display: { xs: "none", sm: "none", md: "none", lg: "block" },
       }}
