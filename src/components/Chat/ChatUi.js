@@ -71,7 +71,7 @@ const ChatUi = ({ selectedFriend, socket }) => {
       timestamp: new Date(Date.now()),
     };
     try {
-      const response = await api.post("/messages", chatMessage);
+      await api.post("/messages", chatMessage);
       // console.log("Message sent:", response.data);
     } catch (error) {
       console.error("Failed to send message:", error.response.data.error);

@@ -1,30 +1,21 @@
-import { Box, Button, Grid, Paper, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchUser } from "../../utils/fetchUser";
+import { Box, Button, Grid, Typography } from "@mui/material";
+import React from "react";
+import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { friendSchema } from "../../Schemas/friendSchema";
 import FormInputText from "../atoms/Input/FormInputFIeld";
-import api from "../../api/api";
 import Navbar from "../organisms/Navbar/NavBar";
 import Footer from "../organisms/Footer/Footer";
 import FriendList from "../organisms/FriendList";
-import { LoadingScreen } from "../atoms/LoadingScreen";
 import { FaUserFriends } from "react-icons/fa";
-import { addFriend, addFriendByEmail } from "../../storage/authReducers";
+import { addFriendByEmail } from "../../storage/authReducers";
+import ProtectedPage from "./ProtectedPage";
 
 const Friends = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const user = useSelector((state) => state.user);
-  useEffect(() => {
-    !user && fetchUser(navigate);
-  }, []);
-
-  const { handleSubmit, reset, control } = useForm({
+  const { handleSubmit, control } = useForm({
     defaultValues: {
       username: "",
       email: "",
@@ -36,16 +27,13 @@ const Friends = () => {
 
   const onSubmit = async (data, event) => {
     event.preventDefault();
-
     const email = event.target.email.value;
 
     dispatch(addFriendByEmail(email));
   };
 
-  if (!user) return <LoadingScreen />;
-
   return (
-    <div>
+    <ProtectedPage>
       <Navbar />
       <Grid
         container
@@ -96,7 +84,7 @@ const Friends = () => {
       </Box>
       <FriendList />
       <Footer />
-    </div>
+    </ProtectedPage>
   );
 };
 

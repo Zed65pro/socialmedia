@@ -1,5 +1,4 @@
-import { createStyles, makeStyles } from "@material-ui/styles";
-import { Avatar, Typography } from "@mui/material";
+import { makeStyles } from "@material-ui/styles";
 import { deepOrange } from "@mui/material/colors";
 import React from "react";
 

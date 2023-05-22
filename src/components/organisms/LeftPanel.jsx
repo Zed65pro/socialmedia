@@ -14,15 +14,14 @@ import { FaUserFriends } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { constants } from "../../constants";
 import { CgProfile } from "react-icons/cg";
-import { makeStyles } from "@mui/styles";
-import AddPostOverlay from "../molecules/AddPostOverlay";
+// import AddPostOverlay from "../molecules/AddPostOverlay";
 
 const LeftPanel = () => {
   const user = useSelector((state) => state.user);
   const [displayedFriends, setDisplayedFriends] = useState(2);
   const navigate = useNavigate();
   const friends = user.friends.slice(0, displayedFriends);
-  const [showOverlay, setShowOverlay] = useState(false);
+  // const [showOverlay, setShowOverlay] = useState(false);
 
   const handleShowMoreFriends = () => {
     if (displayedFriends + 2 <= user.friends.length) {

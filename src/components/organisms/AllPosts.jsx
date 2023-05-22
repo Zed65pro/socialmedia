@@ -11,6 +11,19 @@ const AllPosts = ({ userId }) => {
   const [showMore, setShowMore] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Helper function to shuffle array elements
+  const shuffleArray = useCallback((array) => {
+    const shuffledArray = [...array];
+    for (let i = shuffledArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledArray[i], shuffledArray[j]] = [
+        shuffledArray[j],
+        shuffledArray[i],
+      ];
+    }
+    return shuffledArray;
+  }, []);
+
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -29,26 +42,13 @@ const AllPosts = ({ userId }) => {
     };
 
     fetchPosts();
-  }, []);
+  }, [shuffleArray, userId]);
 
   const handleShowMore = () => {
     const nextVisiblePosts = posts.slice(0, visiblePosts.length + 1);
     setVisiblePosts(nextVisiblePosts);
     setShowMore(nextVisiblePosts.length < posts.length);
   };
-
-  // Helper function to shuffle array elements
-  const shuffleArray = useCallback((array) => {
-    const shuffledArray = [...array];
-    for (let i = shuffledArray.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffledArray[i], shuffledArray[j]] = [
-        shuffledArray[j],
-        shuffledArray[i],
-      ];
-    }
-    return shuffledArray;
-  }, []);
 
   return (
     <>
@@ -70,7 +70,15 @@ const AllPosts = ({ userId }) => {
               <React.Fragment key={post._id}>
                 <Post post_={post} userId={post.user.userId} />
                 {index === visiblePosts.length - 1 && (
-                  <Grid item xs={12}>
+                  <Grid
+                    item
+                    xs={12}
+                    sx={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "center",
+                    }}
+                  >
                     {showMore && (
                       <IconButton
                         onClick={handleShowMore}

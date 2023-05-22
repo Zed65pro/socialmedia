@@ -1,11 +1,9 @@
-import { Box, Button, IconButton, Paper } from "@mui/material";
+import { Box, Button, IconButton, Paper, Typography } from "@mui/material";
 import React, { useState } from "react";
 import ProfilePictureUpload from "../molecules/ProfilePictureUpload";
 import ProfileDetails from "../molecules/ProfileDetails";
-import { useNavigate } from "react-router-dom";
 import ProfileEdit from "./ProfileEdit";
 import { useDispatch, useSelector } from "react-redux";
-import { FaUserFriends } from "react-icons/fa";
 import { LoadingScreen } from "../atoms/LoadingScreen";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import { HiOutlineUserRemove } from "react-icons/hi";
@@ -97,6 +95,15 @@ const ProfileUser = ({ profile }) => {
           </IconButton>
         )}
       </Box>
+      {error && error !== "" && (
+        <Typography
+          sx={{ textAlign: "center", color: "red" }}
+          position={"center"}
+          variant="h5"
+        >
+          {error}
+        </Typography>
+      )}
     </Box>
   );
 };

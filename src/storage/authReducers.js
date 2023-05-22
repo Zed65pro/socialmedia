@@ -122,7 +122,6 @@ export const logout = (navigate) => {
       await api.post("/auth/logout");
       console.log("LOGGED OUT");
       dispatch(logoutSuccess());
-
       navigate(`${constants.BASE_URL}/${constants.SIGN_IN}`);
     } catch (error) {
       const errorMessage =

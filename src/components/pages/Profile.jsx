@@ -1,38 +1,30 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../organisms/Navbar/NavBar";
-import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
-import { Box, Typography } from "@mui/material";
-import { fetchUser } from "../../utils/fetchUser";
+import ProtectedPage from "./ProtectedPage";
 import AllPosts from "../organisms/AllPosts";
-import ProfileUser from "../organisms/ProfileUser";
 import Footer from "../organisms/Footer/Footer";
+import ProfileUser from "../organisms/ProfileUser";
+import { Box } from "@mui/material";
+import { fetchUser } from "../../utils/fetchUser";
 import { LoadingScreen } from "../atoms/LoadingScreen";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Profile = () => {
   const navigate = useNavigate();
-  const user = useSelector((state) => state.user);
-  const { id } = useParams();
 
+  const { id } = useParams();
   const [profile, setProfile] = useState(null);
 
   useEffect(() => {
-    if (!user) {
-      fetchUser(navigate);
-    } else if (!profile && id) {
+    if (!profile && id) {
       fetchUser(navigate, { id, setProfile });
     }
+  }, [id, profile, navigate]);
 
-    return () => {
-      if (profile) {
-        setProfile(null); // Reset profile state to null when navigating away
-      }
-    };
-  }, [user, id, profile, navigate]);
+  if (!profile) return <LoadingScreen />;
 
-  if (!user || !profile) return <LoadingScreen />;
   return (
-    <>
+    <ProtectedPage>
       <Navbar />
       <Box>
         <ProfileUser profile={profile} />
@@ -42,13 +34,14 @@ const Profile = () => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
+            margin: "2rem 0",
           }}
         >
           <AllPosts userId={profile._id} />
         </Box>
       </Box>
       <Footer />
-    </>
+    </ProtectedPage>
   );
 };
 

@@ -12,9 +12,9 @@ import { LoadingScreen } from "./components/atoms/LoadingScreen.jsx";
 // const Friends = lazyLoad("./components/pages/Friends");
 // const AddPost = lazyLoad("./components/templates/AddPost");
 const Home = lazy(() => import("./components/pages/Home"));
-const Signin = lazy(() => import("./components/templates/Signin/Signin"));
-const Signup = lazy(() => import("./components/templates/Signup/Signup"));
-const BadRoute = lazy(() => import("./components/pages/BadRoute"));
+const Signin = lazy(() => import("./components/pages/Signin"));
+const Signup = lazy(() => import("./components/pages/Signup"));
+// const BadRoute = lazy(() => import("./components/pages/BadRoute"));
 const Profile = lazy(() => import("./components/pages/Profile"));
 const Friends = lazy(() => import("./components/pages/Friends"));
 const AddPost = lazy(() => import("./components/templates/AddPost"));
@@ -23,6 +23,10 @@ const App = () => {
   return (
     <Suspense fallback={<LoadingScreen />}>
       <Routes>
+        <Route
+          path={`/`}
+          element={<Navigate to={`${constants.BASE_URL}/${constants.HOME}`} />}
+        />
         <Route
           exact
           path={`${constants.BASE_URL}/`}
@@ -46,13 +50,6 @@ const App = () => {
           element={<Home />}
         />
         <Route
-          exact
-          path={`${constants.BASE_URL}/${constants.WRONG_ROUTE}`}
-          element={
-            <BadRoute link={`${constants.BASE_URL}/${constants.SIGN_IN}`} />
-          }
-        />
-        <Route
           path={`${constants.BASE_URL}/${constants.USER}/:id`}
           element={<Profile />}
         />
@@ -66,16 +63,20 @@ const App = () => {
           path={`${constants.BASE_URL}/${constants.ADDPOST}`}
           element={<AddPost />}
         />
-        <Route
-          path={`/`}
-          element={<Navigate to={`${constants.BASE_URL}/${constants.HOME}`} />}
-        />
+
         <Route
           path="*"
           element={
-            <Navigate to={`${constants.BASE_URL}/${constants.WRONG_ROUTE}`} />
+            <Navigate to={`${constants.BASE_URL}/${constants.SIGN_IN}`} />
           }
         />
+        {/* <Route
+        exact
+        path={`${constants.BASE_URL}/${constants.WRONG_ROUTE}`}
+        element={
+          <BadRoute link={`${constants.BASE_URL}/${constants.SIGN_IN}`} />
+        }
+      /> */}
       </Routes>
     </Suspense>
   );

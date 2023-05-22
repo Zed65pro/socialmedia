@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Box, IconButton, Typography, TextField, Button } from "@mui/material";
+import { Box, IconButton, Typography, Button } from "@mui/material";
 import { FiX } from "react-icons/fi";
 import { constants } from "../../constants.js";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import defaultImage from "../../assets/background.jpeg";
 import api from "../../api/api.js";
 import FormInputText from "../atoms/Input/FormInputFIeld.jsx";
@@ -14,7 +14,6 @@ import LoadingCircle from "../atoms/LoadingCircle.jsx";
 import { BiDislike } from "react-icons/bi";
 import { AiOutlineLike } from "react-icons/ai";
 import { useSelector } from "react-redux";
-import { useLikeDislike } from "../../hooks/likesAndDislikes.js";
 
 const PostOverlay = ({
   onClose,
@@ -42,7 +41,7 @@ const PostOverlay = ({
       }
     };
     !comments && fetchComments();
-  }, []);
+  }, [comments, post._id]);
 
   const { handleSubmit, reset, control } = useForm({
     defaultValues: {

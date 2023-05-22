@@ -52,7 +52,7 @@ export const postCreate = (
     dispatch(postRequest());
 
     try {
-      const response = await api.post("/post", {
+      await api.post("/post", {
         body,
         hashtags,
         userId,

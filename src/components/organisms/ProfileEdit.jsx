@@ -1,19 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import dayjs from "dayjs";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import FormInputText from "../atoms/Input/FormInputFIeld";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { constants } from "../../constants";
 import { useNavigate } from "react-router-dom";
 import { Box, Button, Typography } from "@mui/material";
 import { profileSchema } from "../../Schemas/profileSchema";
 import Footer from "./Footer/Footer";
 import ProfilePictureUpload from "../molecules/ProfilePictureUpload";
-import api from "../../api/api";
-import { fetchUser } from "../../utils/fetchUser";
-import { DatePicker } from "@mui/x-date-pickers-pro";
 import { useDispatch, useSelector } from "react-redux";
-import { ErrorMessage } from "@hookform/error-message";
 import { updateUser } from "../../storage/authReducers";
 import DatePickerAtom from "../atoms/DatePickerAtom";
 
@@ -27,7 +22,6 @@ const ProfileEdit = ({ setIsEdit }) => {
 
   const {
     handleSubmit,
-    reset,
     control,
     formState: { errors },
   } = useForm({

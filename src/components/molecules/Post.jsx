@@ -22,7 +22,6 @@ import ProfilePictureUpload from "./ProfilePictureUpload.jsx";
 import { AiOutlineLike } from "react-icons/ai";
 import { constants } from "../../constants.js";
 import api from "../../api/api.js";
-import LoadingCircle from "../atoms/LoadingCircle.jsx";
 import PostOverlay from "./PostOverlay.jsx";
 import { useLikeDislike } from "../../hooks/likesAndDislikes.js";
 

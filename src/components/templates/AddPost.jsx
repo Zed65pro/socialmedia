@@ -21,9 +21,9 @@ const AddPost = () => {
 
   useEffect(() => {
     !user && fetchUser(navigate);
-  }, []);
+  }, [user, navigate]);
 
-  const { handleSubmit, reset, control } = useForm({
+  const { handleSubmit, control } = useForm({
     defaultValues: {
       body: "",
       hashtags: [],

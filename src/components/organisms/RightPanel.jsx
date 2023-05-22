@@ -1,13 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box, Stack, Typography, Paper, Button } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { FiLogOut } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../storage/authReducers";
 import { ads } from "../../ads";
 
 const RightPanel = () => {
-  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

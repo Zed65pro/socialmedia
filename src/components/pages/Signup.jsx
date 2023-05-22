@@ -1,30 +1,28 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import FormInputText from "../../atoms/Input/FormInputFIeld";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { signupSchema } from "../../../Schemas/userSchema.js";
-import Form from "../../molecules/Form/Form";
-import { constants } from "../../../constants";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { signup } from "../../../storage/authReducers";
 import { Typography } from "@mui/material";
-import { getToken } from "../../../storage/authStorage";
-
+import { getToken } from "../../storage/authStorage";
+import { constants } from "../../constants";
+import { signupSchema } from "../../Schemas/userSchema";
+import Form from "../molecules/Form/Form";
+import { signup } from "../../storage/authReducers";
+import FormInputText from "../atoms/Input/FormInputFIeld";
 const Signup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const loading = useSelector((state) => state.loading);
   const error = useSelector((state) => state.error);
-  const user = useSelector((state) => state.user);
 
   // const user = useSelector((state) => state.user);
   useEffect(() => {
-    getToken() && user && navigate(`${constants.BASE_URL}/${constants.HOME}`);
-  }, []);
+    getToken() && navigate(`${constants.BASE_URL}/${constants.HOME}`);
+  }, [navigate]);
 
-  const { handleSubmit, reset, control } = useForm({
+  const { handleSubmit, control } = useForm({
     defaultValues: {
       username: "",
       email: "",

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Box, IconButton } from "@mui/material";
 import { FiX } from "react-icons/fi";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { postSchema } from "../../Schemas/postSchema";
 import { postCreate } from "../../storage/postReducers";
-import { fetchUser } from "../../utils/fetchUser";
 import FormInputText from "../atoms/Input/FormInputFIeld";
 import FormInputHashtag from "../atoms/FormInputHashtag";
 import CreatePost from "../organisms/CreatePost";
@@ -19,11 +18,7 @@ const AddPostOverlay = ({ onClose }) => {
   const user = useSelector((state) => state.user);
   const [image, setImage] = useState(null);
 
-  useEffect(() => {
-    !user && fetchUser(navigate);
-  }, []);
-
-  const { handleSubmit, reset, control } = useForm({
+  const { handleSubmit, control } = useForm({
     defaultValues: {
       body: "",
       hashtags: [],

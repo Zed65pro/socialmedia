@@ -1,6 +1,6 @@
 import api from "../api/api";
 
-export const fetchPost = async (userId) => {
+export const fetchPost = async (userId, page, pageSize) => {
   try {
     const response = userId
       ? await api.get(`/post/user/${userId}`)

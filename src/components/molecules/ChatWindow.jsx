@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import {
   Box,
@@ -11,7 +11,6 @@ import {
   IconButton,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { io } from "socket.io-client";
 import ChatUi from "../Chat/ChatUi";
 
 const ChatWindow = ({ setShowChatWindow, socket }) => {
