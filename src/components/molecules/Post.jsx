@@ -53,21 +53,6 @@ const Post = memo(({ post_ }) => {
     setShowConfirmation(true);
   };
 
-  // if (loading)
-  //   return (
-  //     <Box
-  //       sx={{
-  //         display: "flex",
-  //         justifyContent: "center",
-  //         alignItems: "center",
-  //         width: "100%",
-  //         height: "30vh",
-  //       }}
-  //     >
-  //       <LoadingCircle />;
-  //     </Box>
-  //   );
-
   return (
     <>
       {showOverlay && (
@@ -107,7 +92,13 @@ const Post = memo(({ post_ }) => {
               width: { sm: "70%", md: "60%", lg: "100%" },
             }}
           >
-            <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                // flexDirection: { xs: "column", lg: "row" },
+              }}
+            >
               <Box
                 sx={{
                   display: "flex",
@@ -115,11 +106,7 @@ const Post = memo(({ post_ }) => {
                   width: "100%",
                 }}
               >
-                <ProfilePictureUpload
-                  profile={post.user}
-                  size={45}
-                  margin={2}
-                />
+                <ProfilePictureUpload profile={post.user} size={45} />
                 <Typography
                   variant="h6"
                   sx={{
@@ -140,16 +127,15 @@ const Post = memo(({ post_ }) => {
                   </Link>
                 </Typography>
               </Box>
-              {user._id === post.user.userId && (
-                <IconButton
-                  sx={{ color: "red", mr: "5px" }}
-                  onClick={onDeletePost}
-                >
-                  <RiDeleteBin5Fill />
-                </IconButton>
-              )}
-
               <Box sx={{ display: "flex" }}>
+                {user._id === post.user.userId && (
+                  <IconButton
+                    sx={{ color: "red", mr: "5px" }}
+                    onClick={onDeletePost}
+                  >
+                    <RiDeleteBin5Fill />
+                  </IconButton>
+                )}
                 <IconButton sx={{ color: "#fff" }} onClick={toggleOverlay}>
                   <FiLogOut />
                 </IconButton>
@@ -211,6 +197,7 @@ const Post = memo(({ post_ }) => {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
+                flexDirection: { xs: "column", lg: "row" },
               }}
             >
               {post?.hashtags?.map((hashtag) => (

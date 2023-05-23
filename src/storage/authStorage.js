@@ -1,5 +1,3 @@
-// authStorage.js
-
 // Save the token to localStorage
 export const saveToken = (token) => {
   localStorage.setItem("token", token);

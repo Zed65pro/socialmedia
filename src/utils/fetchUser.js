@@ -1,6 +1,6 @@
 import api from "../api/api";
-import { getCurrentUser } from "../storage/authReducers";
-import store from "../storage/useLogin.js";
+import store from "../storage/rootReducers";
+import { getCurrentUser } from "../storage/userReducers";
 
 export const fetchUser = async (navigate, state) => {
   if (state) {

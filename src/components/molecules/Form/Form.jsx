@@ -5,8 +5,8 @@ import Copyright from "../../atoms/Copyright";
 import { Link } from "react-router-dom";
 import BackgroundSplit from "../../atoms/BackgroundSplit";
 import { makeStyles } from "@mui/styles";
-import { reset_error } from "../../../storage/useLogin";
 import { useDispatch } from "react-redux";
+import { reset_error } from "../../../storage/authReducers";
 
 const Form = ({ children, link, linkText, type, onSubmit, handleSubmit }) => {
   const dispatch = useDispatch();

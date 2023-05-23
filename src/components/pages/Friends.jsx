@@ -1,6 +1,6 @@
 import { Box, Button, Grid, Typography } from "@mui/material";
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { friendSchema } from "../../Schemas/friendSchema";
@@ -9,11 +9,12 @@ import Navbar from "../organisms/Navbar/NavBar";
 import Footer from "../organisms/Footer/Footer";
 import FriendList from "../organisms/FriendList";
 import { FaUserFriends } from "react-icons/fa";
-import { addFriendByEmail } from "../../storage/authReducers";
 import ProtectedPage from "./ProtectedPage";
+import { addFriendByEmail } from "../../storage/userReducers";
 
 const Friends = () => {
   const dispatch = useDispatch();
+  const error = useSelector((state) => state.error);
 
   const { handleSubmit, control } = useForm({
     defaultValues: {
@@ -69,6 +70,7 @@ const Friends = () => {
               autoFocus
               sx={{ mb: "1rem", mt: "1rem" }}
             />
+            {error && <Typography sx={{ color: "red" }}>{error}</Typography>}
             <Button type="submit" fullWidth variant="contained">
               Add friend
             </Button>

@@ -60,7 +60,7 @@ const AllPosts = ({ userId }) => {
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
-            width: { sm: "70vw", md: "70vw", lg: "40vw" },
+            width: { xs: "70vw", lg: "50vw" },
             height: "100%",
             margin: "0",
           }}

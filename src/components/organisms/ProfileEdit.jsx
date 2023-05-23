@@ -9,10 +9,10 @@ import { profileSchema } from "../../Schemas/profileSchema";
 import Footer from "./Footer/Footer";
 import ProfilePictureUpload from "../molecules/ProfilePictureUpload";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUser } from "../../storage/authReducers";
 import DatePickerAtom from "../atoms/DatePickerAtom";
+import { updateUser } from "../../storage/userReducers";
 
-const ProfileEdit = ({ setIsEdit }) => {
+const ProfileEdit = ({ setIsEdit, setProfile }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
@@ -45,6 +45,14 @@ const ProfileEdit = ({ setIsEdit }) => {
       dispatch(
         updateUser(user._id, image, email, username, formattedDate, navigate)
       );
+
+      setProfile((prev) => ({
+        ...prev,
+        username,
+        dateOfBirth: formattedDate,
+        email,
+        profilePicture: image ? image : user.profilePicture,
+      }));
 
       setIsEdit(false);
     } catch (err) {

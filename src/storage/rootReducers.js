@@ -1,21 +1,14 @@
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import {
-  LOGIN_FAILURE,
-  LOGIN_REQUEST,
-  LOGIN_SUCCESS,
-  LOGOUT_FAILURE,
-  LOGOUT_REQUEST,
+  AUTH_FAILURE,
+  AUTH_REQUEST,
+  AUTH_SUCCESS,
   LOGOUT_SUCCESS,
-  SIGNUP_FAILURE,
-  SIGNUP_REQUEST,
-  SIGNUP_SUCCESS,
-  USER_FAILURE,
-  USER_REQUEST,
-  USER_SUCCESS,
 } from "./authReducers";
+import { POST_FAILURE, POST_REQUEST, POST_SUCCESS } from "./postReducers";
+import { USER_FAILURE, USER_REQUEST, USER_SUCCESS } from "./userReducers";
 import { removeToken } from "./authStorage";
-import { POST_CREATE, POST_FAILURE, POST_REQUEST } from "./postReducers";
 
 //RESET ERROR
 export const RESET_ERROR = "RESET_ERROR";
@@ -32,11 +25,9 @@ const initialState = {
   error: null,
 };
 
-export const authReducer = (state = initialState, action) => {
+export const userReducer = (state = initialState, action) => {
   switch (action.type) {
-    case LOGIN_REQUEST:
-    case SIGNUP_REQUEST:
-    case LOGOUT_REQUEST:
+    case AUTH_REQUEST:
     case POST_REQUEST:
     case USER_REQUEST:
       return {
@@ -44,23 +35,20 @@ export const authReducer = (state = initialState, action) => {
         loading: true,
         error: null,
       };
-    case LOGIN_SUCCESS:
-    case SIGNUP_SUCCESS:
+    case AUTH_SUCCESS:
     case USER_SUCCESS:
       return {
         ...state,
         loading: false,
         user: action.payload,
       };
-    case POST_CREATE:
+    case POST_SUCCESS:
       return {
         ...state,
         loading: false,
         error: null,
       };
-    case LOGIN_FAILURE:
-    case SIGNUP_FAILURE:
-    case LOGOUT_FAILURE:
+    case AUTH_FAILURE:
     case POST_FAILURE:
     case USER_FAILURE:
       return {
@@ -83,6 +71,6 @@ export const authReducer = (state = initialState, action) => {
   }
 };
 
-const store = createStore(authReducer, applyMiddleware(thunk));
+const store = createStore(userReducer, applyMiddleware(thunk));
 
 export default store;

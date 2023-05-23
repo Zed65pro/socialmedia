@@ -3,41 +3,20 @@ import api from "../api/api";
 
 // post action types
 export const POST_REQUEST = "POST_REQUEST";
-export const POST_GET = "POST_GET";
-export const POST_CREATE = "POST_CREATE";
-export const POST_UPDATE = "POST_UPDATE";
-export const POST_DELETE = "POST_DELETE";
+export const POST_SUCCESS = "POST_SUCCESS";
 export const POST_FAILURE = "POST_FAILURE";
 
-// // Login data
-// export const postGet = () => ({
-//     type: POST_GET,
-//     payload: postId
-//   });
-
+// Action types
 export const postRequest = () => ({
   type: POST_REQUEST,
 });
-export const postCreateRequest = () => ({
-  type: POST_CREATE,
-  // payload: post,
-});
-export const postUpdateRequest = (updatedPost) => ({
-  type: POST_CREATE,
-  payload: updatedPost,
-});
-
-export const postDeleteRequest = () => ({
-  type: POST_DELETE,
+export const postProcessSuccess = () => ({
+  type: POST_SUCCESS,
 });
 export const postFailure = (error) => ({
   type: POST_FAILURE,
   payload: error,
 });
-//   export const loginFailure = (error) => ({
-//     type: LOGIN_FAILURE,
-//     payload: error,
-//   });
 
 export const postCreate = (
   body,
@@ -60,7 +39,7 @@ export const postCreate = (
         image,
         profilePicture,
       });
-      dispatch(postCreateRequest());
+      dispatch(postProcessSuccess());
 
       navigate(`${constants.BASE_URL}/${constants.USER}/${userId}`);
     } catch (error) {
@@ -75,14 +54,12 @@ export const postUpdate = (body, hashtags, navigate) => {
     dispatch(postRequest());
 
     try {
-      const response = await api.post("/post", {
+      await api.post("/post", {
         body,
         hashtags,
       });
 
-      const post = { body, hashtags, userId: response.data.userId };
-      dispatch(postUpdateRequest(post));
-
+      dispatch(postProcessSuccess());
       navigate(`${constants.BASE_URL}/${constants.HOME}`);
     } catch (error) {
       const errorMessage = error.response.data || "An unknown error occurred";
@@ -91,14 +68,13 @@ export const postUpdate = (body, hashtags, navigate) => {
   };
 };
 
-export const postDelete = (body, hashtags, navigate) => {
+export const postDelete = (navigate) => {
   return async (dispatch) => {
     dispatch(postRequest());
 
     try {
       await api.delete("/post");
-      dispatch(postDeleteRequest());
-
+      dispatch(postProcessSuccess());
       navigate(`${constants.BASE_URL}/${constants.HOME}`);
     } catch (error) {
       const errorMessage = error.response.data || "An unknown error occurred";
