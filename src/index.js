@@ -9,6 +9,8 @@ import { LocalizationProvider } from "@mui/x-date-pickers-pro";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import store from "./storage/rootReducers";
 
+console.log(process.env.REACT_APP_API);
+
 const app = ReactDOM.createRoot(document.getElementById("root"));
 app.render(
   // <React.StrictMode>

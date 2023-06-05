@@ -1,4 +1,4 @@
-import { Box, Divider, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React from "react";
 
@@ -7,7 +7,6 @@ import {
   AiOutlineInstagram,
   AiOutlineGithub,
 } from "react-icons/ai";
-import DividerAtom from "../../atoms/DividerAtom";
 
 const Footer = () => {
   const classes = useStyles();
